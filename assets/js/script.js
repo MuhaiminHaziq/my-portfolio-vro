@@ -157,3 +157,39 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const blogGridView = document.getElementById('blog-grid-view');
+  const blogDetailView = document.getElementById('blog-detail-view');
+  const backBtn = document.getElementById('back-to-blogs');
+  const blogCards = document.querySelectorAll('.blog-post-card');
+
+  // Open Post Detail View
+  blogCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // (Optional) Populate details from card clicked
+      const title = card.querySelector('.blog-item-title').textContent;
+      const category = card.querySelector('.blog-category').textContent;
+      const date = card.querySelector('time').textContent;
+
+      document.getElementById('detail-title').textContent = title;
+      document.getElementById('detail-category').textContent = category;
+      document.getElementById('detail-date').textContent = date;
+
+      // Toggle Views
+      blogGridView.style.display = 'none';
+      blogDetailView.style.display = 'block';
+      
+      // Scroll to top of main container
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Back to Blog List View
+  backBtn.addEventListener('click', () => {
+    blogDetailView.style.display = 'none';
+    blogGridView.style.display = 'block';
+  });
+});
