@@ -158,22 +158,6 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-const textToType = "I am a Computer Science student specializing in Computer Networks, with a strong passion for cybersecurity, ethical hacking, and web development. Through competing in multiple Capture the Flag (CTF) challenges, I've sharpened my problem-solving skills and learned to look at systems through a security-first lens.";
-  
-  const typingElement = document.getElementById("typed-text");
-  let index = 0;
-  const speed = 25; // Speed in milliseconds per character (lower = faster)
-
-  function typeWriter() {
-    if (index < textToType.length) {
-      typingElement.innerHTML += textToType.charAt(index);
-      index++;
-      setTimeout(typeWriter, speed);
-    }
-  }
-
-  // Start typing when the window finishes loading
-  window.addEventListener('DOMContentLoaded', typeWriter);
 
 document.addEventListener('DOMContentLoaded', () => {
   const blogGridView = document.getElementById('blog-grid-view');

@@ -195,15 +195,30 @@
           <h2 class="h2 article-title">About me</h2>
         </header>
 
-        <section class="about-text">
-          <p class="about-intro">
-            <span class="terminal-prompt">$ </span>
-            <span id="typed-text"></span><span class="cursor">|</span>
-          </p>
+        <section class="about-text terminal-container">
 
-          <p class="about-paragraph">
-            Alongside network security, I actively build robust and scalable web applications using the Laravel framework. My goal is to combine core development with solid security practices to create systems that are not only functional and user-friendly, but inherently resilient.
-          </p>
+          <!-- PARAGRAPH 1 -->
+          <div class="terminal-block">
+            <div class="prompt-line">
+              <span class="prompt-tree">┌──</span><span class="prompt-bracket">(</span><span class="prompt-user">pxy</span><span class="prompt-at">㉿</span><span class="prompt-user">kali</span><span class="prompt-bracket">)</span><span class="prompt-dash">-</span><span class="prompt-sqbracket">[</span><span class="prompt-path">~/whoami</span><span class="prompt-sqbracket">]</span>
+            </div>
+            <div class="command-line">
+              <span class="prompt-symbol-group"><span class="prompt-tree">└─</span><span class="prompt-symbol">$</span></span>
+              <div class="typed-wrapper"><span id="typed-text-1" class="typed-text"></span><span id="cursor" class="block-cursor">█</span></div>
+            </div>
+          </div>
+
+          <!-- PARAGRAPH 2 -->
+          <div class="terminal-block" id="paragraph-2" style="display: none;">
+            <div class="prompt-line">
+              <span class="prompt-tree">┌──</span><span class="prompt-bracket">(</span><span class="prompt-user">pxy</span><span class="prompt-at">㉿</span><span class="prompt-user">kali</span><span class="prompt-bracket">)</span><span class="prompt-dash">-</span><span class="prompt-sqbracket">[</span><span class="prompt-path">~/whoami</span><span class="prompt-sqbracket">]</span>
+            </div>
+            <div class="command-line">
+              <span class="prompt-symbol-group"><span class="prompt-tree">└─</span><span class="prompt-symbol">$</span></span>
+              <div class="typed-wrapper"><span id="typed-text-2" class="typed-text"></span></div>
+            </div>
+          </div>
+
         </section>
 
 
@@ -480,24 +495,48 @@
     </div>
 
   </main>
-  <script>
-  const textToType = "I am a Computer Science student specializing in Computer Networks, with a strong passion for cybersecurity, ethical hacking, and web development. Through competing in multiple Capture the Flag (CTF) challenges, I've sharpened my problem-solving skills and learned to look at systems through a security-first lens.";
-  
-  const typingElement = document.getElementById("typed-text");
-  let index = 0;
-  const speed = 25; // Speed in milliseconds per character (lower = faster)
+ <script>
+    const text1 = "I am a Computer Science student specializing in Computer Networks, with a strong passion for cybersecurity, ethical hacking, and web development. Through competing in multiple Capture the Flag (CTF) challenges, I've sharpened my problem-solving skills and learned to look at systems through a security-first lens.";
+    const text2 = "Alongside network security, I actively build robust and scalable web applications using the Laravel framework. My goal is to combine core development with solid security practices to create systems that are not only functional and user-friendly, but inherently resilient.";
 
-  function typeWriter() {
-    if (index < textToType.length) {
-      typingElement.innerHTML += textToType.charAt(index);
-      index++;
-      setTimeout(typeWriter, speed);
+    let i = 0;
+    let j = 0;
+    const speed = 18;
+
+    function typeParagraph1() {
+      const el1 = document.getElementById("typed-text-1");
+      const cursor = document.getElementById("cursor");
+
+      if (i < text1.length) {
+        el1.textContent += text1.charAt(i);
+        i++;
+        setTimeout(typeParagraph1, speed);
+      } else {
+        setTimeout(() => {
+          const p2 = document.getElementById("paragraph-2");
+          p2.style.display = "block";
+          document.getElementById("typed-text-2").after(cursor);
+          typeParagraph2();
+        }, 400);
+      }
     }
-  }
 
-  // Start typing when the window finishes loading
-  window.addEventListener('DOMContentLoaded', typeWriter);
-</script>
+    function typeParagraph2() {
+      const el2 = document.getElementById("typed-text-2");
+
+      if (j < text2.length) {
+        el2.textContent += text2.charAt(j);
+        j++;
+        setTimeout(typeParagraph2, speed);
+      }
+    }
+
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      typeParagraph1();
+    } else {
+      document.addEventListener("DOMContentLoaded", typeParagraph1);
+    }
+  </script>
 
 
 

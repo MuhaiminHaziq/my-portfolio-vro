@@ -693,17 +693,31 @@ main {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Optional: adds depth on hover */
 }
 
-/* Terminal prompt style */
-.terminal-prompt {
-  color: #ff0055; /* Match your theme's red accent color */
-  font-family: 'Fira Code', 'Courier New', monospace;
-  font-weight: bold;
+/* Ensure the paragraph wraps text naturally */
+.terminal-line {
+  margin-bottom: 16px;
+  line-height: 1.6;
 }
 
-/* Blinking cursor animation */
+/* Force elements to fit inline next to each other */
+.terminal-prompt {
+  color: #ff0055;
+  font-weight: bold;
+  margin-right: 6px;
+  display: inline;
+}
+
+#typed-text-1,
+#typed-text-2 {
+  display: inline;
+}
+
+/* Fix cursor behavior so it sits right next to the last letter */
 .cursor {
+  display: inline;
   font-weight: bold;
   color: #ff0055;
+  margin-left: 1px;
   animation: blink 0.8s infinite;
 }
 
@@ -712,6 +726,102 @@ main {
   50% { opacity: 0; }
 }
 
+.terminal-container {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.terminal-block {
+  margin-bottom: 20px;
+}
+
+/* Line 1: Top Prompt */
+.prompt-line {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  margin-bottom: 2px;
+}
+
+.prompt-tree {
+  color: #4e9a06; /* Kali Green */
+  font-weight: bold;
+}
+
+.prompt-bracket {
+  color: #4e9a06;
+}
+
+.prompt-user {
+  color: #3465a4; /* Kali Blue */
+  font-weight: bold;
+}
+
+.prompt-at {
+  color: #3465a4;
+  font-weight: normal;
+}
+
+.prompt-dash, .prompt-sqbracket {
+  color: #4e9a06;
+}
+
+.prompt-path {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Line 2: Flexbox forces $ and text onto the same line */
+.command-line {
+  display: flex;
+  align-items: flex-start;
+}
+
+.prompt-symbol-group {
+  display: inline-flex;
+  white-space: nowrap;
+  margin-right: 8px;
+  user-select: none;
+}
+
+.prompt-symbol {
+  color: #3465a4;
+  font-weight: bold;
+}
+
+.typed-wrapper {
+  flex: 1;
+}
+
+.typed-text {
+  display: inline;
+}
+
+/* Block Cursor */
+.block-cursor {
+  display: inline;
+  color: #ff0055;
+  font-weight: bold;
+  margin-left: 2px;
+  text-shadow: 0 0 8px rgba(255, 0, 85, 0.8);
+  animation: blink 0.9s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Crisp terminal blink without fading delay */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
 
 .cert-link {
   display: inline-block;
