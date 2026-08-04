@@ -196,11 +196,12 @@
         </header>
 
         <section class="about-text">
-          <p>
-            I am a Computer Science student specializing in Computer Networks, with a strong passion for cybersecurity, ethical hacking, and web development. Through competing in multiple Capture the Flag (CTF) challenges, I’ve sharpened my problem-solving skills and learned to look at systems through a security-first lens.
+          <p class="about-intro">
+            <span class="terminal-prompt">$ </span>
+            <span id="typed-text"></span><span class="cursor">|</span>
           </p>
 
-          <p>
+          <p class="about-paragraph">
             Alongside network security, I actively build robust and scalable web applications using the Laravel framework. My goal is to combine core development with solid security practices to create systems that are not only functional and user-friendly, but inherently resilient.
           </p>
         </section>
@@ -479,6 +480,24 @@
     </div>
 
   </main>
+  <script>
+  const textToType = "I am a Computer Science student specializing in Computer Networks, with a strong passion for cybersecurity, ethical hacking, and web development. Through competing in multiple Capture the Flag (CTF) challenges, I've sharpened my problem-solving skills and learned to look at systems through a security-first lens.";
+  
+  const typingElement = document.getElementById("typed-text");
+  let index = 0;
+  const speed = 25; // Speed in milliseconds per character (lower = faster)
+
+  function typeWriter() {
+    if (index < textToType.length) {
+      typingElement.innerHTML += textToType.charAt(index);
+      index++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  // Start typing when the window finishes loading
+  window.addEventListener('DOMContentLoaded', typeWriter);
+</script>
 
 
 

@@ -681,6 +681,37 @@ main {
   line-height: 1.6;
 }
 
+/* Base styling for smooth animation transition */
+.service-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* Optional: indicates hoverability */
+}
+
+/* Hover state: lifts the card up and adds a subtle glow/shadow */
+.service-item:hover {
+  transform: translateY(-8px) scale(1.02); /* Moves card up 8px and slightly enlarges it */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Optional: adds depth on hover */
+}
+
+/* Terminal prompt style */
+.terminal-prompt {
+  color: #ff0055; /* Match your theme's red accent color */
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-weight: bold;
+}
+
+/* Blinking cursor animation */
+.cursor {
+  font-weight: bold;
+  color: #ff0055;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 
 .cert-link {
   display: inline-block;
