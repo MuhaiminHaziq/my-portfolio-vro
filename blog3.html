@@ -186,91 +186,72 @@
 
       <article class="blog active" data-page="blog">
 
-        <!-- ==================== 1. BLOG GRID VIEW ==================== -->
-        <div id="blog-grid-view">
-          <header>
-            <h2 class="h2 article-title">Blog</h2>
-          </header>
+        <!-- Back Navigation -->
+        <a href="blog.html" class="back-btn">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            <span>Back to Blogs</span>
+        </a>
 
-          <section class="blog-posts">
-            <ul class="blog-posts-list">
+        <!-- Post Header -->
+        <header class="blog-header">
+            <div class="blog-meta">
+            <p class="blog-category">Capture The Flag</p>
+            <span class="dot"></span>
+            <time datetime="2022-02-23">11 July 2026</time>
+            </div>
+            <h2 class="h2 article-title">Operation Cyberheroes: Internal CTF 2026</h2>
+        </header>
 
-              <!-- BLOG POST ITEM 1 -->
-              <li class="blog-post-item">
-                <a href="blog1.html" class="blog-post-card" data-post-id="post-1">
-                  <figure class="blog-banner-box">
-                    <img src="./assets/images/umcs/umcs_cover.JPG" alt="Design conferences in 2022" loading="lazy">
-                  </figure>
-
-                  <div class="blog-content">
-                    <div class="blog-meta">
-                      <p class="blog-category">Cybersecurity / Workshops</p>
-                      <span class="dot"></span>
-                      <time datetime="2022-02-23">16 May 2026</time>
-                    </div>
-
-                    <h3 class="h3 blog-item-title">Universiti Malaya Cybersecurity Summit 2026</h3>
-
-                    <p class="blog-text">
-                      Key takeaways from technical workshops on incident response, log analysis, and industry forum sessions. 
+       <!-- POST CONTENT -->
+        <section class="blog-detail-content">
+                
+                    <p style="margin-bottom: 16px;">
+                        Recently, our team participated in the <strong>Operation Cyberheroes Internal CTF 2026</strong>, hosted by the UiTM Cyberheroes Club. As relative newcomers to cybersecurity, our primary goal was not merely winning, but accumulating practical experience—knowing that real-world exposure drives long-term growth.
                     </p>
-                  </div>
-                </a>
-              </li>
 
-              <!-- BLOG POST ITEM 2 -->
-              <li class="blog-post-item">
-                <a href="blog2.html" class="blog-post-card" data-post-id="post-1">
-                  <figure class="blog-banner-box">
-                    <img src="./assets/images/rtwh/RTWH_cover.jpg" alt="Design conferences in 2022" loading="lazy">
-                  </figure>
+                    <p style="margin-bottom: 16px;">
+                        Throughout the competition, my teammates (Adib and Naufal) and I pushed our limits to tackle every challenge. Through solid collaboration, we successfully secured a spot in the <strong>Top 10</strong>.
+                    </p>
 
-                    <div class="blog-content">
-                      <div class="blog-meta">
-                        <p class="blog-category">Ethical Hacking / Workshops</p>
-                        <span class="dot"></span>
-                        <time datetime="2022-02-23">28 June 2026</time>
-                      </div>
+                    <p style="margin-bottom: 16px;">
+                        For me, every CTF is a key learning opportunity. Beyond the scoreboard, my focus is mastering challenge patterns, evaluating difficulty levels, discovering essential Linux and Windows tools, and sharpening our strategy for future events.
+                    </p>
 
-                      <h3 class="h3 blog-item-title">Road To White Hat Workshop</h3>
+                <!-- GALLERY SECTION -->
+                <div class="gallery-section">
+                <!-- <h3 class="h3 section-title">📸 Workshop Moments</h3> -->
+                
+                <div class="journey-gallery">
+                    <figure class="gallery-card">
+                    <img src="./assets/images/rtwh/RTWH_1.jpg" alt="Linux Session" loading="lazy">
+                    <figcaption>Linux Terminal & Command Line Setup</figcaption>
+                    </figure>
 
-                      <p class="blog-text">
-                        Key takeaways from technical workshops on incident response, log analysis, and industry forum sessions. 
-                      </p>
-                    </div>
-                  </a>
-                </li>
+                    <figure class="gallery-card">
+                    <img src="./assets/images/rtwh/RTWH_2.jpg" alt="CTF Breakdown" loading="lazy">
+                    <figcaption>Exploring CTF Categories</figcaption>
+                    </figure>
 
-              <!-- BLOG POST ITEM 3 -->
-              <li class="blog-post-item">
-                <a href="blog3.html" class="blog-post-card" data-post-id="post-1">
-                  <figure class="blog-banner-box">
-                    <img src="./assets/images/rtwh/RTWH_cover.jpg" alt="Design conferences in 2022" loading="lazy">
-                  </figure>
+                    <figure class="gallery-card">
+                    <img src="./assets/images/rtwh/RTWH_3.jpg" alt="Mini CTF Competition" loading="lazy">
+                    <figcaption>im in the leaderboard baby</figcaption>
+                    </figure>
+                    
+                    <figure class="gallery-card">
+                    <img src="./assets/images/rtwh/RTWH_4.jpg" alt="Mini CTF Competition" loading="lazy">
+                    <figcaption>UiTM Cyberheroes Club - RTWH Gen 6</figcaption>
+                    </figure>
 
-                    <div class="blog-content">
-                      <div class="blog-meta">
-                        <p class="blog-category">Capture The Flag</p>
-                        <span class="dot"></span>
-                        <time datetime="2022-02-23">11 July 2026</time>
-                      </div>
+                    <figure class="gallery-card">
+                    <img src="./assets/images/rtwh/RTWH_5.jpg" alt="Mini CTF Competition" loading="lazy">
+                    <figcaption>us in the middle stressing with ^[[200~</figcaption>
+                    </figure>
+                </div>
+                </div>
 
-                      <h3 class="h3 blog-item-title">Operation Cyberheroes: Internal CTF 2026</h3>
+            </section>
 
-                      <p class="blog-text">
-                        ctf challenge hosted by ucc club 
-                      </p>
-                    </div>
-                  </a>
-                </li>
-
-              <!-- Add data-post-id="post-2", "post-3", etc. to your other cards -->
-
-            </ul>
-          </section>
-        </div>
-
-      </article>
+        </article>
 
       <!--
         - #END BLOG ---------------------------------------------------------------------------------------------------------------------------
