@@ -693,10 +693,24 @@ main {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Optional: adds depth on hover */
 }
 
+@media screen and (max-width: 600px) {
+  .terminal-container {
+    font-size: 0.75rem; /* Shrinks font slightly so the entire line fits on mobile */
+    line-height: 1.4;
+  }
+  
+  .prompt-user, .prompt-path, .prompt-tree {
+    font-size: 0.75rem;
+  }
+}
+
 /* Ensure the paragraph wraps text naturally */
 .terminal-line {
-  margin-bottom: 16px;
-  line-height: 1.6;
+  display: flex;
+  flex-wrap: nowrap; /* Prevent prompt items from dropping to a new line */
+  align-items: center;
+  overflow-x: auto; /* Adds subtle swipe scrolling if the prompt is wider than the screen */
+  white-space: nowrap;
 }
 
 /* Force elements to fit inline next to each other */
@@ -738,10 +752,9 @@ main {
 
 /* Line 1: Top Prompt */
 .prompt-line {
-  display: flex;
-  align-items: center;
-  user-select: none;
-  margin-bottom: 2px;
+  display: inline-flex;
+  flex-shrink: 0; /* Prevents the prompt symbols from squishing */
+  white-space: nowrap;
 }
 
 .prompt-tree {
