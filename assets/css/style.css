@@ -33,25 +33,29 @@
     hsla(0, 0%, 12%, 0.251) 0%, 
     hsla(0, 0%, 5%, 0) 100%
   ), hsl(0, 0%, 7%);
+  
+  /* UPDATED: Electric Neon Red Gradients */
   --bg-gradient-yellow-1: linear-gradient(
     to bottom right, 
-    hsl(0, 100%, 60%) 0%, 
-    hsla(0, 100%, 50%, 0) 50%
+    hsl(340, 100%, 55%) 0%, 
+    hsla(15, 100%, 50%, 0) 50%
   );
   --bg-gradient-yellow-2: linear-gradient(
     135deg, 
-    hsla(0, 100%, 60%, 0.251) 0%, 
-    hsla(0, 100%, 45%, 0) 59.86%
+    hsla(340, 100%, 55%, 0.3) 0%, 
+    hsla(15, 100%, 50%, 0) 60%
   ), hsl(0, 0%, 7%);
+  
   --border-gradient-onyx: linear-gradient(
     to bottom right, 
-    hsl(0, 0%, 20%) 0%, 
+    hsla(340, 100%, 55%, 0.4) 0%, 
     hsla(0, 0%, 20%, 0) 50%
   );
+  
   --text-gradient-yellow: linear-gradient(
     to right, 
-    hsl(0, 100%, 62%), 
-    hsl(0, 100%, 50%)
+    hsl(340, 100%, 55%), 
+    hsl(15, 100%, 50%)
   );
 
   /* solid */
@@ -63,11 +67,14 @@
   --smoky-black: hsl(0, 0%, 4%);        /* Deeper main background */
   --white-1: hsl(0, 0%, 100%);
   --white-2: hsl(0, 0%, 98%);
-  --orange-yellow-crayola: hsl(0, 100%, 60%); /* Main vibrant red accent */
-  --vegas-gold: hsl(0, 85%, 50%);            /* Secondary deep red accent */
+  
+  /* UPDATED: Neon Accent Colors */
+  --orange-yellow-crayola: hsl(340, 100%, 55%); /* Electric Neon Red (#ff0055) */
+  --vegas-gold: hsl(15, 100%, 50%);            /* Fiery Red-Orange (#ff4000) */
+  
   --light-gray: hsl(0, 0%, 84%);
   --light-gray-70: hsla(0, 0%, 84%, 0.7);
-  --bittersweet-shimmer: hsl(0, 75%, 45%);
+  --bittersweet-shimmer: hsl(340, 85%, 45%);
 
   /**
    * typography
@@ -101,6 +108,10 @@
   --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.4);
   --shadow-4: 0 25px 50px hsla(0, 0%, 0%, 0.3);
   --shadow-5: 0 24px 80px hsla(0, 0%, 0%, 0.5);
+
+  /* ADDED: Cyber Neon Glow Shadows */
+  --glow-neon-red: 0 0 12px hsla(340, 100%, 55%, 0.5);
+  --glow-neon-strong: 0 0 25px hsla(340, 100%, 55%, 0.8);
 
   /**
    * transition
@@ -182,17 +193,17 @@ article {
   margin: 16px 0;
 }
 
+/* Consolidated Icon Box Styling */
 .icon-box {
   position: relative;
   background: var(--border-gradient-onyx);
-  width: 30px;
-  height: 30px;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-  color: var(--orange-yellow-crayola);
   box-shadow: var(--shadow-1);
   z-index: 1;
 }
@@ -206,9 +217,16 @@ article {
   z-index: -1;
 }
 
-.icon-box ion-icon { --ionicon-stroke-width: 35px; }
+.icon-box ion-icon {
+  font-size: 18px;
+  color: var(--orange-yellow-crayola) !important;
+  --ionicon-stroke-width: 35px;
+  display: block;
+}
 
-article { display: none; }
+article {
+  display: block;
+}
 
 article.active {
   display: block;
@@ -521,6 +539,14 @@ main {
   gap: 16px;
 }
 
+
+
+.icon-box ion-icon, 
+.contact-item .icon-box ion-icon {
+  color: var(--neon-red) !important;
+  filter: drop-shadow(0 0 6px var(--neon-red-glow));
+}
+
 .contact-item {
   min-width: 100%;
   display: flex;
@@ -538,6 +564,12 @@ main {
   font-size: var(--fs-8);
   text-transform: uppercase;
   margin-bottom: 2px;
+}
+
+/* for phone number */
+.contact-info :is(.contact-links, time, address) {
+  color: var(--white-2);
+  font-size: var(--fs-7);
 }
 
 .contact-info :is(.contact-link, time, address) {
@@ -565,7 +597,41 @@ main {
 .social-item .social-link:hover { color: var(--light-gray); }
 
 
+/* Smooth slide-down animation */
+@keyframes timelineSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+/* Base style for timeline sections */
+.timeline {
+  opacity: 0; /* Keeps hidden until keyframe starts */
+  animation: timelineSlideDown 0.6s ease-out forwards;
+}
+
+/* Top-to-bottom staggered timing for each section */
+.timeline:nth-of-type(1) {
+  animation-delay: 0.1s; /* Education */
+}
+
+.timeline:nth-of-type(2) {
+  animation-delay: 0.35s; /* Competitions & Hackathons */
+}
+
+.timeline:nth-of-type(3) {
+  animation-delay: 0.6s; /* Experience */
+}
+
+/* Target the active article container directly */
+article.active {
+  animation: slideDown 0.5s ease-out forwards !important;
+}
 
 
 /*-----------------------------------*\
@@ -603,9 +669,52 @@ main {
 .navbar-link:hover,
 .navbar-link:focus { color: var(--light-gray-70); }
 
-.navbar-link.active { color: var(--orange-yellow-crayola); }
+.navbar-link.active {
+  color: var(--neon-red) !important;
+  text-shadow: 0 0 10px var(--neon-red-glow), 0 0 20px var(--neon-red-glow);
+}
 
+/*-----------------------------------*\
+  #UNDER DEVELOPMENT MESSAGE
+\*-----------------------------------*/
+.dev-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  margin-top: 20px;
+  /* Removed border, background, and box-shadow */
+}
 
+.dev-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 65px;
+  background: var(--border-gradient-onyx, linear-gradient(to bottom right, #2b2b2c, #1b1b1c));
+  border-radius: 16px;
+  color: #ff3b3b; /* Red icon color to match your theme accent */
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.dev-title {
+  color: var(--white-2, #fafafa);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.dev-text {
+  color: var(--light-gray, #d6d6d6);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 400px; /* Keeps text cleanly wrapped in the center */
+}
 
 
 
@@ -1472,6 +1581,12 @@ main {
   #CONTACT
 \*-----------------------------------*/
 
+/* Glowing Border Accent on Contact & Form Containers */
+.mapbox, .contact-form, .sidebar {
+  border: 1px solid var(--dark-glass-border) !important;
+  box-shadow: 0 0 15px rgba(255, 0, 85, 0.08);
+}
+
 .mapbox {
   position: relative;
   height: 250px;
@@ -1531,8 +1646,8 @@ textarea.form-input::-webkit-resizer { display: none; }
 .form-btn {
   position: relative;
   width: 100%;
-  background: var(--border-gradient-onyx);
-  color: var(--orange-yellow-crayola);
+  background: var(--text-gradient-yellow);
+  color: var(--white-1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1540,31 +1655,49 @@ textarea.form-input::-webkit-resizer { display: none; }
   padding: 13px 20px;
   border-radius: 14px;
   font-size: var(--fs-6);
+  font-weight: var(--fw-500);
   text-transform: capitalize;
-  box-shadow: var(--shadow-3);
+  box-shadow: var(--glow-neon-red);
   z-index: 1;
   transition: var(--transition-1);
+  overflow: hidden;
 }
 
 .form-btn::before {
   content: "";
   position: absolute;
   inset: 1px;
-  background: var(--bg-gradient-jet);
+  background: var(--eerie-black-1);
   border-radius: inherit;
   z-index: -1;
   transition: var(--transition-1);
 }
 
-.form-btn ion-icon { font-size: 16px; }
+.form-btn ion-icon {
+  font-size: 16px;
+  color: var(--orange-yellow-crayola);
+  transition: var(--transition-1);
+}
 
-.form-btn:hover { background: var(--bg-gradient-yellow-1); }
+/* Hover state: Fills with full neon gradient & expands the red glow */
+.form-btn:hover:not(:disabled) {
+  box-shadow: var(--glow-neon-strong);
+  transform: translateY(-2px);
+}
 
-.form-btn:hover::before { background: var(--bg-gradient-yellow-2); }
+.form-btn:hover:not(:disabled)::before {
+  opacity: 0; /* Uncovers the vibrant underlying gradient on hover */
+}
+
+.form-btn:hover:not(:disabled) ion-icon {
+  color: var(--white-1);
+  transform: translateX(3px); /* Subtle shift for the plane icon */
+}
 
 .form-btn:disabled {
-  opacity: 0.7;
+  opacity: 0.5;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .form-btn:disabled:hover { background: var(--border-gradient-onyx); }
@@ -1650,8 +1783,10 @@ textarea.form-input::-webkit-resizer { display: none; }
   }
 
   .article-title::after {
-    width: 40px;
-    height: 5px;
+  background: var(--crimson-gradient) !important;
+  box-shadow: 0 0 12px var(--neon-red-glow);
+  height: 4px;
+  border-radius: 2px;
   }
 
   .icon-box {
@@ -2204,15 +2339,20 @@ textarea.form-input::-webkit-resizer { display: none; }
   .contacts-list { grid-template-columns: 1fr; }
 
   .contact-info :is(.contact-link) {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  /* Prevent clipping and ellipsis */
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
 
-  .contact-info :is(.contact-link, time, address) {
-    --fs-7: 14px;
-    font-weight: var(--fw-300);
-  }
+  /* Reduce font size so longer text fits naturally on one line */
+  font-size: 11px; 
+}
+
+.contact-info :is(.contact-link, time, address) {
+  color: var(--white-2);
+  --fs-7: 14px;
+  font-weight: var(--fw-300);
+}
 
   .separator:last-of-type {
     margin: 15px 0;
