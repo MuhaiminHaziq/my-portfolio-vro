@@ -224,6 +224,25 @@ article {
   display: block;
 }
 
+/* Fix Ionicons color rendering on iOS / Safari */
+ion-icon {
+  color: var(--orange-yellow-crayola, #ff0055) !important;
+  fill: var(--orange-yellow-crayola, #ff0055) !important;
+  stroke: var(--orange-yellow-crayola, #ff0055) !important;
+}
+
+/* Ensure SVG inside web components inherits the red accent on WebKit */
+.icon-box ion-icon {
+  color: var(--orange-yellow-crayola, #ff0055) !important;
+  --ionicon-stroke-width: 35px;
+  filter: drop-shadow(0 0 4px var(--glow-neon-red, rgba(255, 0, 85, 0.5)));
+}
+
+/* Safari Shadow DOM SVG Target */
+.icon-box ion-icon::part(icon) {
+  color: var(--orange-yellow-crayola, #ff0055) !important;
+}
+
 article {
   display: block;
 }
