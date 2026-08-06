@@ -569,9 +569,29 @@ main {
   filter: drop-shadow(0 0 6px var(--neon-red-glow));
 } */
 
-.icon-box ion-icon,
 .icon-box {
-  color: #ffffff; /* Change #ffffff to any color (e.g., #ff2a5f for pink) */
+  position: relative;
+  background: #1e1e1f;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ff2a5f; /* Icon color */
+  font-size: 18px;
+  border: 1px solid rgba(255, 42, 95, 0.3);        /* Outer pink border */
+  box-shadow: -1px -1px 0 0 rgba(255, 42, 95, 0.4); /* Outer glow */
+}
+
+/* Strips any inner outline or box */
+.icon-box ion-icon,
+.icon-box img,
+.icon-box svg {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .contact-item {
