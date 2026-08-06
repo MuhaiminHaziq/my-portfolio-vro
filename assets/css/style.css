@@ -166,7 +166,10 @@ input, textarea {
 
 html { font-family: var(--ff-poppins); }
 
-body { background: var(--smoky-black); }
+body { 
+  background: var(--smoky-black); 
+  color: #ffffff; 
+}
 
 
 
@@ -560,10 +563,15 @@ main {
 
 
 
-.icon-box ion-icon, 
+/* .icon-box ion-icon, 
 .contact-item .icon-box ion-icon {
   color: var(--neon-red) !important;
   filter: drop-shadow(0 0 6px var(--neon-red-glow));
+} */
+
+.icon-box ion-icon,
+.icon-box {
+  color: #ffffff; /* Change #ffffff to any color (e.g., #ff2a5f for pink) */
 }
 
 .contact-item {
@@ -829,6 +837,10 @@ article.active {
   
   .prompt-user, .prompt-path, .prompt-tree {
     font-size: 0.75rem;
+  }
+
+  p, span, body {
+    color: #ffffff !important;
   }
 }
 
