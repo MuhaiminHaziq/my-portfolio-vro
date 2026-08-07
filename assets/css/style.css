@@ -476,7 +476,7 @@ main {
   transition: var(--transition-2);
 }
 
-.sidebar.active { max-height: 405px; }
+.sidebar.active { max-height: 1000px; }
 
 .sidebar-info {
   position: relative;
@@ -902,8 +902,8 @@ article.active {
 
 .terminal-container {
   font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.75rem;
+  line-height: 1.4;
 }
 
 .terminal-block {
@@ -1869,7 +1869,6 @@ textarea.form-input::-webkit-resizer { display: none; }
     margin-bottom: 30px;
   }
 
-  .sidebar.active { max-height: 1000px; }
 
   .sidebar-info { gap: 25px; }
 
