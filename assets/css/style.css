@@ -849,7 +849,7 @@ article.active {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Optional: adds depth on hover */
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .terminal-container {
     font-size: 0.75rem; /* Shrinks font slightly so the entire line fits on mobile */
     line-height: 1.4;
@@ -860,7 +860,7 @@ article.active {
   }
 
   body {
-    color: #ffffff !important;
+    color: #ffffff;
   }
 }
 
@@ -1869,7 +1869,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     margin-bottom: 30px;
   }
 
-  .sidebar.active { max-height: 584px; }
+  .sidebar.active { max-height: 1000px; }
 
   .sidebar-info { gap: 25px; }
 
