@@ -157,8 +157,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const payload = {
         embeds: [{
           title: "🔔 New Portfolio Visitor",
-          color: 3066993, 
+          color: 3066993, // Emerald green
           fields: [
+            { 
+              name: "IP Address", 
+              value: `\`${data.ip || 'Unknown'}\``, 
+              inline: true 
+            },
             { 
               name: "Location", 
               value: data.success ? `${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || ''}` : "Unknown Location", 
