@@ -137,40 +137,46 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-// ==================== DISCORD LIVE VISITOR TRACKER ====================
+// ======123====================
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Skip tracking during local development
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return;
 
   const webhookUrl = 'https://discord.com/api/webhooks/1536145358734762014/KsYabXy92yY2hXx2dnVjqRKY56hvA5KDn-CZdDe9vRDDpcf527nhCjLGhOAbfiRqK1gn';
 
-  // 2. Fetch location and ISP data from a free IP API
-  fetch('https://ipapi.co/json/')
+  const sendToDiscord = (payload) => {
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(err => console.error('Discord Webhook Error:', err));
+  };
+
+  fetch('https://ipwho.is/')
     .then(res => res.json())
     .then(data => {
       const payload = {
         embeds: [{
           title: "🔔 New Portfolio Visitor",
-          color: 3066993, // Emerald green theme accent
+          color: 3066993, 
           fields: [
             { 
               name: "Location", 
-              value: `${data.city || 'Unknown'}, ${data.region || ''}, ${data.country_name || ''}`, 
+              value: data.success ? `${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || ''}` : "Unknown Location", 
               inline: true 
             },
             { 
               name: "Network / ISP", 
-              value: data.org || "Unknown", 
+              value: data.connection?.isp || "Mobile Data / Unknown ISP", 
               inline: true 
             },
             { 
               name: "Device / Platform", 
-              value: navigator.platform || "Unknown", 
+              value: navigator.userAgentData?.platform || navigator.platform || "Mobile/Desktop Browser", 
               inline: true 
             },
             { 
               name: "Referrer Source", 
-              value: document.referrer ? `[Link Origin](${document.referrer})` : "Direct Link / Typed URL", 
+              value: document.referrer ? `[Link Origin](${document.referrer})` : "Direct Link (e.g. WhatsApp / Typed URL)", 
               inline: true 
             },
             { 
@@ -179,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
               inline: true 
             },
             { 
-              name: "Time (Local)", 
+              name: "Time", 
               value: new Date().toLocaleString(), 
               inline: false 
             }
@@ -188,21 +194,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }]
       };
 
-      // 3. Send payload to Discord
-      fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      sendToDiscord(payload);
     })
     .catch(() => {
-      // Fallback if ad-blockers block the IP location lookup
       const fallbackPayload = {
         embeds: [{
           title: "🔔 New Portfolio Visitor (Basic Log)",
           color: 15105570,
           fields: [
-            { name: "Referrer Source", value: document.referrer || "Direct Link / Typed URL", inline: true },
+            { name: "Referrer Source", value: document.referrer || "Direct Link (e.g. WhatsApp / Typed URL)", inline: true },
             { name: "Page Visited", value: `\`${window.location.pathname}\``, inline: true },
             { name: "Time", value: new Date().toLocaleString(), inline: false }
           ],
@@ -210,11 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }]
       };
 
-      fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fallbackPayload)
-      });
+      sendToDiscord(fallbackPayload);
     });
 });
 
