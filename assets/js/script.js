@@ -143,34 +143,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const backBtn = document.getElementById('back-to-blogs');
   const blogCards = document.querySelectorAll('.blog-post-card');
 
-  // Open Post Detail View
-  blogCards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      e.preventDefault();
+  // ONLY attach single-page interception if #blog-detail-view exists on the page.
+  // If #blog-detail-view is missing, standard links (e.g., href="blog1.html") open normally.
+  if (blogDetailView && blogGridView) {
+    blogCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
 
-      const title = card.querySelector('.blog-item-title')?.textContent || '';
-      const category = card.querySelector('.blog-category')?.textContent || '';
-      const date = card.querySelector('time')?.textContent || '';
+        const title = card.querySelector('.blog-item-title')?.textContent || '';
+        const category = card.querySelector('.blog-category')?.textContent || '';
+        const date = card.querySelector('time')?.textContent || '';
 
-      const dTitle = document.getElementById('detail-title');
-      const dCategory = document.getElementById('detail-category');
-      const dDate = document.getElementById('detail-date');
+        const dTitle = document.getElementById('detail-title');
+        const dCategory = document.getElementById('detail-category');
+        const dDate = document.getElementById('detail-date');
 
-      if (dTitle) dTitle.textContent = title;
-      if (dCategory) dCategory.textContent = category;
-      if (dDate) dDate.textContent = date;
+        if (dTitle) dTitle.textContent = title;
+        if (dCategory) dCategory.textContent = category;
+        if (dDate) dDate.textContent = date;
 
-      // Toggle Views
-      if (blogGridView) blogGridView.style.display = 'none';
-      if (blogDetailView) blogDetailView.style.display = 'block';
-      
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+        blogGridView.style.display = 'none';
+        blogDetailView.style.display = 'block';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     });
-  });
 
-  // Back to Blog List View
-  backBtn?.addEventListener('click', () => {
-    if (blogDetailView) blogDetailView.style.display = 'none';
-    if (blogGridView) blogGridView.style.display = 'block';
-  });
+    // Back to Blog List View
+    backBtn?.addEventListener('click', () => {
+      blogDetailView.style.display = 'none';
+      blogGridView.style.display = 'block';
+    });
+  }
 });

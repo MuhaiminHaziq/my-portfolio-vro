@@ -348,8 +348,9 @@ main {
 
 /* ==================== BLOG DETAIL & GALLERY STYLES ==================== */
 
-/* Back Button */
-.back-btn {
+/* Back Button Styling */
+.back-btn,
+#back-to-blogs {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -359,14 +360,18 @@ main {
   padding: 8px 16px;
   border-radius: 12px;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   margin-bottom: 20px;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
-.back-btn:hover {
+.back-btn:hover,
+#back-to-blogs:hover {
   background: var(--orange-yellow-crayola, #ffdb70);
   color: #121212;
+  transform: translateX(-3px); /* Subtle slide effect on hover */
 }
 
 /* Detail Title & Meta */
@@ -489,6 +494,8 @@ main {
 .avatar-box {
   background: var(--bg-gradient-onyx);
   border-radius: 20px;
+  border-radius: 20px; /* Adjust this value for more or less rounding */
+  overflow: hidden;
 }
 
 .info-content .name {
@@ -1874,7 +1881,11 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .avatar-box { border-radius: 30px; }
 
-  .avatar-box img { width: 120px; }
+  .avatar-box img { 
+    width: 120px;
+    border-radius: 20px;
+    object-fit: cover; 
+  }
 
   .info-content .name { margin-bottom: 15px; }
 
