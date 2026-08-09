@@ -151,73 +151,98 @@ document.addEventListener('DOMContentLoaded', () => {
     }).catch(err => console.error('Discord Webhook Error:', err));
   };
 
-  fetch('https://ipwho.is/')
-    .then(res => res.json())
-    .then(data => {
-      const payload = {
-        embeds: [{
-          title: "🔔 New Portfolio Visitor",
-          color: 3066993, // Emerald green
-          fields: [
-            { 
-              name: "IP Address", 
-              value: `\`${data.ip || 'Unknown'}\``, 
-              inline: true 
-            },
-            { 
-              name: "Location", 
-              value: data.success ? `${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || ''}` : "Unknown Location", 
-              inline: true 
-            },
-            { 
-              name: "Network / ISP", 
-              value: data.connection?.isp || "Mobile Data / Unknown ISP", 
-              inline: true 
-            },
-            { 
-              name: "Device / Platform", 
-              value: navigator.userAgentData?.platform || navigator.platform || "Mobile/Desktop Browser", 
-              inline: true 
-            },
-            { 
-              name: "Referrer Source", 
-              value: document.referrer ? `[Link Origin](${document.referrer})` : "Direct Link (e.g. WhatsApp / Typed URL)", 
-              inline: true 
-            },
-            { 
-              name: "Page Visited", 
-              value: `\`${window.location.pathname}\``, 
-              inline: true 
-            },
-            { 
-              name: "Time", 
-              value: new Date().toLocaleString(), 
-              inline: false 
-            }
-          ],
-          footer: { text: "whoszyq.me Live Tracker" }
-        }]
-      };
+  let refSource = document.referrer;
+  if (!refSource) {
+    refSource = "Direct Link (e.g. WhatsApp / Typed URL)";
+  } else if (refSource.includes("instagram.com")) {
+    refSource = "Instagram Profile / In-App Browser";
+  } else {
+    refSource = `[${refSource}](${refSource})`;
+  }
 
-      sendToDiscord(payload);
+  fetch('https://api.ipify.org?format=json')
+    .then(res => res.json())
+    .then(ipData => {
+      const visitorIp = ipData.ip || "Unknown IP";
+
+      fetch(`https://ipwho.is/${visitorIp}`)
+        .then(res => res.json())
+        .then(data => {
+          const payload = {
+            embeds: [{
+              title: "🔔 New Portfolio Visitor",
+              color: 3066993, // Emerald green
+              fields: [
+                { 
+                  name: "IP Address", 
+                  value: `\`${visitorIp}\``, 
+                  inline: true 
+                },
+                { 
+                  name: "Location", 
+                  value: data.success ? `${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || ''}` : "Unknown Location", 
+                  inline: true 
+                },
+                { 
+                  name: "Network / ISP", 
+                  value: data.connection?.isp || "Mobile Data / Unknown ISP", 
+                  inline: true 
+                },
+                { 
+                  name: "Device / Platform", 
+                  value: navigator.userAgentData?.platform || navigator.platform || "Mobile Browser", 
+                  inline: true 
+                },
+                { 
+                  name: "Referrer Source", 
+                  value: refSource, 
+                  inline: true 
+                },
+                { 
+                  name: "Page Visited", 
+                  value: `\`${window.location.pathname}\``, 
+                  inline: true 
+                },
+                { 
+                  name: "Time", 
+                  value: new Date().toLocaleString(), 
+                  inline: false 
+                }
+              ],
+              footer: { text: "whoszyq.me Live Tracker" }
+            }]
+          };
+
+          sendToDiscord(payload);
+        })
+        .catch(() => {
+          sendFallbackLog(visitorIp, refSource);
+        });
     })
     .catch(() => {
-      const fallbackPayload = {
-        embeds: [{
-          title: "🔔 New Portfolio Visitor (Basic Log)",
-          color: 15105570,
-          fields: [
-            { name: "Referrer Source", value: document.referrer || "Direct Link (e.g. WhatsApp / Typed URL)", inline: true },
-            { name: "Page Visited", value: `\`${window.location.pathname}\``, inline: true },
-            { name: "Time", value: new Date().toLocaleString(), inline: false }
-          ],
-          footer: { text: "whoszyq.me Live Tracker" }
-        }]
-      };
-
-      sendToDiscord(fallbackPayload);
+      sendFallbackLog("Unknown IP", refSource);
     });
+
+  function sendFallbackLog(ip, ref) {
+    const fallbackPayload = {
+      embeds: [{
+        title: "🔔 New Portfolio Visitor",
+        color: 15105570,
+        fields: [
+          { name: "IP Address", value: `\`${ip}\``, inline: true },
+          { name: "Device / Platform", value: navigator.platform || "Mobile Browser", inline: true },
+          { name: "Referrer Source", value: ref, inline: true },
+          { name: "Page Visited", value: `\`${window.location.pathname}\``, inline: true },
+          { name: "Time", value: new Date().toLocaleString(), inline: false }
+        ],
+        footer: { text: "whoszyq.me Live Tracker" }
+      }]
+    };
+    sendToDiscord(fallbackPayload);
+  }
 });
+
+////////
 
 document.addEventListener('DOMContentLoaded', () => {
   const blogGridView = document.getElementById('blog-grid-view');
