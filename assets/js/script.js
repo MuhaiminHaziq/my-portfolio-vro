@@ -137,6 +137,87 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
+// ==================== DISCORD LIVE VISITOR TRACKER ====================
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Skip tracking during local development
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return;
+
+  const webhookUrl = 'https://discord.com/api/webhooks/1536145358734762014/KsYabXy92yY2hXx2dnVjqRKY56hvA5KDn-CZdDe9vRDDpcf527nhCjLGhOAbfiRqK1gn';
+
+  // 2. Fetch location and ISP data from a free IP API
+  fetch('https://ipapi.co/json/')
+    .then(res => res.json())
+    .then(data => {
+      const payload = {
+        embeds: [{
+          title: "🔔 New Portfolio Visitor",
+          color: 3066993, // Emerald green theme accent
+          fields: [
+            { 
+              name: "Location", 
+              value: `${data.city || 'Unknown'}, ${data.region || ''}, ${data.country_name || ''}`, 
+              inline: true 
+            },
+            { 
+              name: "Network / ISP", 
+              value: data.org || "Unknown", 
+              inline: true 
+            },
+            { 
+              name: "Device / Platform", 
+              value: navigator.platform || "Unknown", 
+              inline: true 
+            },
+            { 
+              name: "Referrer Source", 
+              value: document.referrer ? `[Link Origin](${document.referrer})` : "Direct Link / Typed URL", 
+              inline: true 
+            },
+            { 
+              name: "Page Visited", 
+              value: `\`${window.location.pathname}\``, 
+              inline: true 
+            },
+            { 
+              name: "Time (Local)", 
+              value: new Date().toLocaleString(), 
+              inline: false 
+            }
+          ],
+          footer: { text: "whoszyq.me Live Tracker" }
+        }]
+      };
+
+      // 3. Send payload to Discord
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    })
+    .catch(() => {
+      // Fallback if ad-blockers block the IP location lookup
+      const fallbackPayload = {
+        embeds: [{
+          title: "🔔 New Portfolio Visitor (Basic Log)",
+          color: 15105570,
+          fields: [
+            { name: "Referrer Source", value: document.referrer || "Direct Link / Typed URL", inline: true },
+            { name: "Page Visited", value: `\`${window.location.pathname}\``, inline: true },
+            { name: "Time", value: new Date().toLocaleString(), inline: false }
+          ],
+          footer: { text: "whoszyq.me Live Tracker" }
+        }]
+      };
+
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(fallbackPayload)
+      });
+    });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const blogGridView = document.getElementById('blog-grid-view');
   const blogDetailView = document.getElementById('blog-detail-view');
