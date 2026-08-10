@@ -327,12 +327,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (imgTarget) {
       lightboxImg.src = imgTarget.src;
       lightboxCaption.textContent = imgTarget.alt || '';
-      lightbox.classList.add('active');
+      lightbox.style.display = 'flex';
     }
   });
 
-  // Close modal logic
-  const closeLightbox = () => lightbox.classList.remove('active');
+  // Close modal function
+  const closeLightbox = () => {
+    lightbox.style.display = 'none';
+  };
 
   if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
 
@@ -343,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Close on pressing the 'Esc' key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+    if (e.key === 'Escape' && lightbox.style.display === 'flex') {
       closeLightbox();
     }
   });
