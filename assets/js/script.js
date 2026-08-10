@@ -139,7 +139,22 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
 // ======123====================
 document.addEventListener('DOMContentLoaded', () => {
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return;
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('urmom') === 'true') {
+    localStorage.setItem('ignore_tracker', 'true');
+    console.log('Tracker muted for this device.');
+  } else if (urlParams.get('urmom') === 'false') {
+    localStorage.removeItem('ignore_tracker');
+    console.log('Tracker re-enabled for this device.');
+  }
+
+  if (
+    window.location.hostname === 'localhost' || 
+    window.location.hostname === '127.0.0.1' ||
+    localStorage.getItem('ignore_tracker') === 'true'
+  ) {
+    return;
+  }
 
   const webhookUrl = 'https://discord.com/api/webhooks/1536145358734762014/KsYabXy92yY2hXx2dnVjqRKY56hvA5KDn-CZdDe9vRDDpcf527nhCjLGhOAbfiRqK1gn';
 
@@ -168,46 +183,23 @@ document.addEventListener('DOMContentLoaded', () => {
       fetch(`https://ipwho.is/${visitorIp}`)
         .then(res => res.json())
         .then(data => {
+          const ispName = data.connection?.isp?.toLowerCase() || '';
+          if (ispName.includes('ovh') || ispName.includes('amazon') || ispName.includes('digitalocean')) {
+            return;
+          }
+
           const payload = {
             embeds: [{
               title: "🔔 New Portfolio Visitor",
               color: 3066993, // Emerald green
               fields: [
-                { 
-                  name: "IP Address", 
-                  value: `\`${visitorIp}\``, 
-                  inline: true 
-                },
-                { 
-                  name: "Location", 
-                  value: data.success ? `${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || ''}` : "Unknown Location", 
-                  inline: true 
-                },
-                { 
-                  name: "Network / ISP", 
-                  value: data.connection?.isp || "Mobile Data / Unknown ISP", 
-                  inline: true 
-                },
-                { 
-                  name: "Device / Platform", 
-                  value: navigator.userAgentData?.platform || navigator.platform || "Mobile Browser", 
-                  inline: true 
-                },
-                { 
-                  name: "Referrer Source", 
-                  value: refSource, 
-                  inline: true 
-                },
-                { 
-                  name: "Page Visited", 
-                  value: `\`${window.location.pathname}\``, 
-                  inline: true 
-                },
-                { 
-                  name: "Time", 
-                  value: new Date().toLocaleString(), 
-                  inline: false 
-                }
+                { name: "IP Address", value: `\`${visitorIp}\``, inline: true },
+                { name: "Location", value: data.success ? `${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || ''}` : "Unknown Location", inline: true },
+                { name: "Network / ISP", value: data.connection?.isp || "Mobile Data / Unknown ISP", inline: true },
+                { name: "Device / Platform", value: navigator.userAgentData?.platform || navigator.platform || "Mobile Browser", inline: true },
+                { name: "Referrer Source", value: refSource, inline: true },
+                { name: "Page Visited", value: `\`${window.location.pathname}\``, inline: true },
+                { name: "Time", value: new Date().toLocaleString(), inline: false }
               ],
               footer: { text: "whoszyq.me Live Tracker" }
             }]
