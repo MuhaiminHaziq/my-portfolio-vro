@@ -313,6 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==================== LIGHTBOX IMAGE PREVIEW ====================
+// ==================== GLOBAL LIGHTBOX IMAGE PREVIEW ====================
 document.addEventListener('DOMContentLoaded', () => {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
@@ -321,12 +322,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!lightbox) return;
 
-  // Open modal when any image inside .dump-img-box is clicked
+  // Open modal when clicking any image in Dev Dump, Gallery, or Blog cards
   document.addEventListener('click', (e) => {
-    const imgTarget = e.target.closest('.dump-img-box img');
+    const imgTarget = e.target.closest('.dump-img-box img, .gallery-card img, .gallery-item img, .journey-gallery img');
+    
     if (imgTarget) {
       lightboxImg.src = imgTarget.src;
-      lightboxCaption.textContent = imgTarget.alt || '';
+      
+      // Check for <figcaption> text first; fall back to alt text if not found
+      const figureParent = imgTarget.closest('figure, li');
+      const figCaption = figureParent ? figureParent.querySelector('figcaption') : null;
+      
+      lightboxCaption.textContent = figCaption ? figCaption.textContent : (imgTarget.alt || '');
       lightbox.style.display = 'flex';
     }
   });
@@ -338,12 +345,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
 
-  // Close on clicking outside the image (dark overlay background)
+  // Close on tapping dark overlay background
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // Close on pressing the 'Esc' key
+  // Close on pressing 'Escape'
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && lightbox.style.display === 'flex') {
       closeLightbox();
