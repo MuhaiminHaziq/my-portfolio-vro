@@ -430,6 +430,8 @@ main {
 }
 
 .section-title {
+  border-bottom: 2px solid #ff3366; /* Accent Red */
+  padding-bottom: 8px;
   margin-bottom: 15px;
 }
 
@@ -500,6 +502,21 @@ main {
   margin-bottom: 30px;
 }
 
+/* Reduce spacing under the title header */
+.blog-header {
+  margin-bottom: 12px !important; /* Adjust this value to tighten/loosen spacing */
+}
+
+.blog-header .article-title {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Ensure the first paragraph doesn't add extra top margin */
+.blog-detail-content .blog-text-full:first-child {
+  margin-top: 0 !important;
+}
+
 .section-title {
   margin-bottom: 15px;
 }
@@ -520,6 +537,68 @@ main {
   .gallery-item img {
     height: 150px !important;
   }
+}
+
+/* ==================== SCROLL-TRIGGERED ANIMATIONS ==================== */
+
+/* Keyframe for "What I'm Doing" cards */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Keyframe for Tech Stack icons */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Base Hidden State for Elements */
+.service-list .service-item,
+.clients-list .clients-item {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* Active Class Added by Scroll Observer */
+.service-list .service-item.animate-in {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.clients-list .clients-item.animate-in {
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Staggered Delays for "What I'm Doing" */
+.service-list .service-item.animate-in:nth-child(1) { animation-delay: 0.1s; }
+.service-list .service-item.animate-in:nth-child(2) { animation-delay: 0.25s; }
+.service-list .service-item.animate-in:nth-child(3) { animation-delay: 0.4s; }
+
+/* Staggered Delays for Tech Icons */
+.clients-list .clients-item.animate-in:nth-child(1) { animation-delay: 0.1s; }
+.clients-list .clients-item.animate-in:nth-child(2) { animation-delay: 0.18s; }
+.clients-list .clients-item.animate-in:nth-child(3) { animation-delay: 0.26s; }
+.clients-list .clients-item.animate-in:nth-child(4) { animation-delay: 0.34s; }
+.clients-list .clients-item.animate-in:nth-child(5) { animation-delay: 0.42s; }
+.clients-list .clients-item.animate-in:nth-child(6) { animation-delay: 0.50s; }
+.clients-list .clients-item.animate-in:nth-child(7) { animation-delay: 0.58s; }
+
+/* Interactive Hover for Tech Stack */
+.clients-list .clients-item:hover {
+  transform: translateY(-8px) scale(1.15) !important;
+  filter: drop-shadow(0 6px 12px rgba(255, 51, 102, 0.25));
 }
 
 

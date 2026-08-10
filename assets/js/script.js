@@ -358,6 +358,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// ==================== SCROLL-REVEAL ANIMATIONS ====================
+document.addEventListener('DOMContentLoaded', () => {
+  const animatedElements = document.querySelectorAll('.service-item, .clients-item');
+
+  if (!animatedElements.length) return;
+
+  const observerOptions = {
+    root: null, // Uses viewport
+    rootMargin: '0px 0px -50px 0px', // Triggers slightly before element enters view
+    threshold: 0.15 // Triggers when 15% of the item is visible
+  };
+
+  const scrollObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target); // Runs animation once per scroll
+      }
+    });
+  }, observerOptions);
+
+  animatedElements.forEach(el => scrollObserver.observe(el));
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const blogGridView = document.getElementById('blog-grid-view');
   const blogDetailView = document.getElementById('blog-detail-view');
