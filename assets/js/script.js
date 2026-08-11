@@ -359,47 +359,31 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==================== SCROLL-REVEAL ANIMATIONS ====================
-document.addEventListener('DOMContentLoaded', () => {
-  const animatedElements = document.querySelectorAll('.service-item, .clients-item');
+// ==================== UNIFIED SCROLL-REVEAL ANIMATION ====================
+document.addEventListener("DOMContentLoaded", () => {
+  // Selector targets all animatable elements across Resume, CTF/Events, Dev Dump, and About pages
+  const animatedElements = document.querySelectorAll(
+    ".timeline, .timeline-item, .skill, .skills-item, .service-item, .clients-item, .blog-post-item, .dump-card"
+  );
 
   if (!animatedElements.length) return;
 
   const observerOptions = {
     root: null, // Uses viewport
-    rootMargin: '0px 0px -50px 0px', // Triggers slightly before element enters view
-    threshold: 0.15 // Triggers when 15% of the item is visible
+    rootMargin: "0px 0px -40px 0px", // Triggers slightly before element comes fully into view
+    threshold: 0.1, // Triggers when 10% of element is visible
   };
 
   const scrollObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
+        entry.target.classList.add("show");
         observer.unobserve(entry.target); // Runs animation once per scroll
       }
     });
   }, observerOptions);
 
-  animatedElements.forEach(el => scrollObserver.observe(el));
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const observerOptions = {
-    root: null,
-    threshold: 0.1, // Triggers when 10% of the element is in view
-  };
-
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-        observer.unobserve(entry.target); // Animates once
-      }
-    });
-  }, observerOptions);
-
-  // Target sections and individual items
-  const animatedElements = document.querySelectorAll(".timeline, .timeline-item, .skill, .skills-item");
-  animatedElements.forEach((el) => observer.observe(el));
+  animatedElements.forEach((el) => scrollObserver.observe(el));
 });
 
 document.addEventListener('DOMContentLoaded', () => {

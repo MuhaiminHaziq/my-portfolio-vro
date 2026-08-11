@@ -798,21 +798,30 @@ main {
   }
 }
 
-/* Base style only for inner scrollable content elements */
+/* Base style for all scroll-animated elements across all tabs */
 .timeline,
 .timeline-item,
 .skill,
-.skills-item {
+.skills-item,
+.service-item,
+.clients-item,
+.blog-post-item,
+.dump-card {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   will-change: opacity, transform;
 }
 
+/* Active visible state when scrolled into view */
 .timeline.show,
 .timeline-item.show,
 .skill.show,
-.skills-item.show {
+.skills-item.show,
+.service-item.show,
+.clients-item.show,
+.blog-post-item.show,
+.dump-card.show {
   opacity: 1;
   transform: translateY(0);
 }
