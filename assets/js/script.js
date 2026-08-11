@@ -382,6 +382,26 @@ document.addEventListener('DOMContentLoaded', () => {
   animatedElements.forEach(el => scrollObserver.observe(el));
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const observerOptions = {
+    root: null,
+    threshold: 0.1, // Triggers when 10% of the element is in view
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target); // Animates once
+      }
+    });
+  }, observerOptions);
+
+  // Target sections and individual items
+  const animatedElements = document.querySelectorAll(".timeline, .timeline-item, .skill, .skills-item");
+  animatedElements.forEach((el) => observer.observe(el));
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const blogGridView = document.getElementById('blog-grid-view');
   const blogDetailView = document.getElementById('blog-detail-view');

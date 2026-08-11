@@ -252,7 +252,7 @@ article {
 
 article.active {
   display: block;
-  animation: fade 0.5s ease backwards;
+  animation: none !important;
 }
 
 @keyframes fade {
@@ -798,28 +798,23 @@ main {
   }
 }
 
-/* Base style for timeline sections */
-.timeline {
-  opacity: 0; /* Keeps hidden until keyframe starts */
-  animation: timelineSlideDown 0.6s ease-out forwards;
+/* Base style only for inner scrollable content elements */
+.timeline,
+.timeline-item,
+.skill,
+.skills-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  will-change: opacity, transform;
 }
 
-/* Top-to-bottom staggered timing for each section */
-.timeline:nth-of-type(1) {
-  animation-delay: 0.1s; /* Education */
-}
-
-.timeline:nth-of-type(2) {
-  animation-delay: 0.35s; /* Competitions & Hackathons */
-}
-
-.timeline:nth-of-type(3) {
-  animation-delay: 0.6s; /* Experience */
-}
-
-/* Target the active article container directly */
-article.active {
-  animation: slideDown 0.5s ease-out forwards !important;
+.timeline.show,
+.timeline-item.show,
+.skill.show,
+.skills-item.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 
