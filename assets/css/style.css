@@ -805,11 +805,18 @@ main {
 .skills-item,
 .service-item,
 .clients-item,
-.blog-post-item,
-.dump-card {
+.blog-post-item {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  will-change: opacity, transform;
+}
+
+.dump-card {
+  opacity: 0;
+  transform: translateY(45px) scale(0.94); /* Bigger movement + subtle zoom */
+  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); /* Slower & smoother */
   will-change: opacity, transform;
 }
 
@@ -820,12 +827,19 @@ main {
 .skills-item.show,
 .service-item.show,
 .clients-item.show,
-.blog-post-item.show,
-.dump-card.show {
+.blog-post-item.show{
   opacity: 1;
   transform: translateY(0);
 }
 
+.dump-card.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.dump-card:nth-child(3n+1) { transition-delay: 0.1s; }
+.dump-card:nth-child(3n+2) { transition-delay: 0.25s; }
+.dump-card:nth-child(3n+3) { transition-delay: 0.4s; }
 
 /*-----------------------------------*\
   #NAVBAR
