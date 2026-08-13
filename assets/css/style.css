@@ -841,6 +841,118 @@ main {
 .dump-card:nth-child(3n+2) { transition-delay: 0.25s; }
 .dump-card:nth-child(3n+3) { transition-delay: 0.4s; }
 
+/* Container spans full width of its parent section */
+.dev-banner-container {
+  position: relative;
+  width: 100%;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: transparent; /* No grey box, follows your theme */
+}
+
+/* Edge-to-Edge Tape Styling */
+.caution-tape {
+  position: absolute;
+  width: 100vw; /* Forces it to stretch completely edge-to-edge across the screen/container */
+  left: 50%;
+  transform: translateX(-50%);
+  height: 35px;
+  
+  background: repeating-linear-gradient(
+    -45deg,
+    #f5c518,
+    #f5c518 15px,
+    #111 15px,
+    #111 30px
+  );
+  background-size: 60px 60px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Tape 1: Slanted / angled across */
+.tape-1 {
+  top: 40%;
+  transform: translateX(-50%) rotate(-4deg);
+  animation: moveStripesLeft 2s linear infinite;
+  z-index: 1;
+}
+
+/* Tape 2: Crossing in the opposite direction */
+.tape-2 {
+  top: 45%;
+  transform: translateX(-50%) rotate(4deg);
+  animation: moveStripesRight 2s linear infinite;
+  z-index: 2;
+  opacity: 0.9;
+}
+
+/* Content Box (Transparent background, floats cleanly over the tapes) */
+/* Ensure the outer content box aligns everything centrally */
+.dev-content-box {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-aligns all child elements horizontally */
+  justify-content: center;
+  text-align: center;
+  
+  background: rgba(18, 18, 18, 0.85);
+  padding: 30px 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  max-width: 450px;
+  margin: 0 auto; /* Keeps the card itself centered */
+}
+
+/* Center the icon block and its contents */
+.dev-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto; /* Centers the icon container */
+  
+  /* Retain your icon box dimensions/styling if using a background badge */
+  width: 55px;
+  height: 55px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05); /* Adjust or remove if needed */
+}
+
+/* Icon sizing */
+.dev-icon ion-icon {
+  font-size: 32px;
+  color: #ff2a5f; /* Or #f5c518 depending on your theme preference */
+}
+
+.dev-title {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.dev-text {
+  color: #999999;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Continuous Movement Animations */
+@keyframes moveStripesLeft {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 0; }
+}
+
+@keyframes moveStripesRight {
+  0% { background-position: 0 0; }
+  100% { background-position: -60px 0; }
+}
+
 /*-----------------------------------*\
   #NAVBAR
 \*-----------------------------------*/
