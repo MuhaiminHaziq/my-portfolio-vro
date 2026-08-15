@@ -137,7 +137,6 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-// ======123====================
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('urmom') === 'true') {
@@ -190,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           const payload = {
             embeds: [{
-              title: "🔔 New Portfolio Visitor",
+              title: "New Portfolio Visitor",
               color: 3066993, // Emerald green
               fields: [
                 { name: "IP Address", value: `\`${visitorIp}\``, inline: true },
@@ -201,7 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: "Page Visited", value: `\`${window.location.pathname}\``, inline: true },
                 { name: "Time", value: new Date().toLocaleString(), inline: false }
               ],
-              footer: { text: "whoszyq.me Live Tracker" }
             }]
           };
 
@@ -227,7 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
           { name: "Page Visited", value: `\`${window.location.pathname}\``, inline: true },
           { name: "Time", value: new Date().toLocaleString(), inline: false }
         ],
-        footer: { text: "whoszyq.me Live Tracker" }
       }]
     };
     sendToDiscord(fallbackPayload);
