@@ -137,6 +137,66 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
+////////
+
+// ==================== DYNAMIC NAVBAR INJECTOR ====================
+document.addEventListener('DOMContentLoaded', () => {
+  const navPlaceholder = document.getElementById('navbar-placeholder');
+
+  if (navPlaceholder) {
+    fetch('navbar.html')
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load navbar');
+        return response.text();
+      })
+      .then(htmlContent => {
+        // Inject the single navbar HTML
+        navPlaceholder.innerHTML = htmlContent;
+
+        // Automatically set active class based on current URL path
+        let currentPath = window.location.pathname.split('/').pop();
+        if (!currentPath || currentPath === '') currentPath = 'index.html';
+
+        const navLinks = navPlaceholder.querySelectorAll('.navbar-link');
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === currentPath) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      })
+      .catch(error => console.error('Navbar injection error:', error));
+  }
+});
+
+// ==================== DYNAMIC SIDEBAR INJECTOR (.html) ====================
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebarPlaceholder = document.getElementById('sidebar-placeholder');
+
+  if (sidebarPlaceholder) {
+    fetch('sidebar.html')
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load sidebar.html');
+        return response.text();
+      })
+      .then(htmlContent => {
+        sidebarPlaceholder.innerHTML = htmlContent;
+
+        // Re-attach sidebar toggle listener for mobile devices after fetch
+        const sidebar = document.querySelector('[data-sidebar]');
+        const sidebarBtn = document.querySelector('[data-sidebar-btn]');
+
+        if (sidebar && sidebarBtn) {
+          sidebarBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+          });
+        }
+      })
+      .catch(error => console.error('Sidebar injection error:', error));
+  }
+});
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('urmom') === 'true') {
@@ -228,67 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }]
     };
     sendToDiscord(fallbackPayload);
-  }
-});
-
-////////
-
-// ==================== DYNAMIC NAVBAR INJECTOR ====================
-document.addEventListener('DOMContentLoaded', () => {
-  const navPlaceholder = document.getElementById('navbar-placeholder');
-
-  if (navPlaceholder) {
-    fetch('navbar.html')
-      .then(response => {
-        if (!response.ok) throw new Error('Failed to load navbar');
-        return response.text();
-      })
-      .then(htmlContent => {
-        // Inject the single navbar HTML
-        navPlaceholder.innerHTML = htmlContent;
-
-        // Automatically set active class based on current URL path
-        let currentPath = window.location.pathname.split('/').pop();
-        if (!currentPath || currentPath === '') currentPath = 'index.html';
-
-        const navLinks = navPlaceholder.querySelectorAll('.navbar-link');
-        navLinks.forEach(link => {
-          const href = link.getAttribute('href');
-          if (href === currentPath) {
-            link.classList.add('active');
-          } else {
-            link.classList.remove('active');
-          }
-        });
-      })
-      .catch(error => console.error('Navbar injection error:', error));
-  }
-});
-
-// ==================== DYNAMIC SIDEBAR INJECTOR (.html) ====================
-document.addEventListener('DOMContentLoaded', () => {
-  const sidebarPlaceholder = document.getElementById('sidebar-placeholder');
-
-  if (sidebarPlaceholder) {
-    fetch('sidebar.html')
-      .then(response => {
-        if (!response.ok) throw new Error('Failed to load sidebar.html');
-        return response.text();
-      })
-      .then(htmlContent => {
-        sidebarPlaceholder.innerHTML = htmlContent;
-
-        // Re-attach sidebar toggle listener for mobile devices after fetch
-        const sidebar = document.querySelector('[data-sidebar]');
-        const sidebarBtn = document.querySelector('[data-sidebar-btn]');
-
-        if (sidebar && sidebarBtn) {
-          sidebarBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-          });
-        }
-      })
-      .catch(error => console.error('Sidebar injection error:', error));
   }
 });
 
