@@ -200,25 +200,25 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('urmom') === 'true') {
-    localStorage.setItem('ignore_tracker', 'true');
-    console.log('Tracker muted for this device.');
+    localStorage.setItem('ignore_message', 'true');
+    console.log('message muted for this device.');
   } else if (urlParams.get('urmom') === 'false') {
-    localStorage.removeItem('ignore_tracker');
-    console.log('Tracker re-enabled for this device.');
+    localStorage.removeItem('ignore_message');
+    console.log('message re-enabled for this device.');
   }
 
   if (
     window.location.hostname === 'localhost' || 
     window.location.hostname === '127.0.0.1' ||
-    localStorage.getItem('ignore_tracker') === 'true'
+    localStorage.getItem('ignore_message') === 'true'
   ) {
     return;
   }
 
-  const webhookUrl = 'https://discord.com/api/webhooks/1536145358734762014/KsYabXy92yY2hXx2dnVjqRKY56hvA5KDn-CZdDe9vRDDpcf527nhCjLGhOAbfiRqK1gn';
+  const relay = 'https://yellow-breeze-fa0c.muhaiminhaziq25.workers.dev';
 
   const sendToDiscord = (payload) => {
-    fetch(webhookUrl, {
+    fetch(relay, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
