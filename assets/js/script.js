@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function sendFallbackLog(ip, ref) {
     const fallbackPayload = {
       embeds: [{
-        title: "🔔 New Portfolio Visitor",
+        title: "New Portfolio Visitor",
         color: 15105570,
         fields: [
           { name: "IP Address", value: `\`${ip}\``, inline: true },
