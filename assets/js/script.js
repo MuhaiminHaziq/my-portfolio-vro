@@ -201,10 +201,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('urmom') === 'true') {
     localStorage.setItem('ignore_message', 'true');
-    console.log('message muted for this device.');
+    console.log('off');
   } else if (urlParams.get('urmom') === 'false') {
     localStorage.removeItem('ignore_message');
-    console.log('message re-enabled for this device.');
+    console.log('on');
   }
 
   if (
