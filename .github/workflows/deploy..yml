@@ -1,0 +1,60 @@
+name: Obfuscate & Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Change to master if your default branch is named master
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install JavaScript Obfuscator
+        run: npm install -g javascript-obfuscator
+
+      - name: Prepare Staging Directory
+        run: |
+          mkdir -p _site
+          cp -r * _site/ 2>/dev/null || true
+          rm -rf _site/.github _site/.git
+
+      - name: Obfuscate All JavaScript Files
+        run: |
+          javascript-obfuscator _site --output _site \
+            --compact true \
+            --control-flow-flattening true \
+            --control-flow-flattening-threshold 0.75 \
+            --string-array true \
+            --string-array-encoding 'base64' \
+            --string-array-threshold 0.8 \
+            --identifier-names-generator hexadecimal \
+            --source-map false
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
