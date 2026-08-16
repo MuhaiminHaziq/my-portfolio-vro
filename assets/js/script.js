@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const relay = 'yellow-breeze-fa0c.muhaiminhaziq25.workers.dev';
+  const webhookUrl = 'https://yellow-breeze-fa0c.muhaiminhaziq25.workers.dev';
 
   const sendToDiscord = (payload) => {
     fetch(relay, {
