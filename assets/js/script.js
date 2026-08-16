@@ -215,14 +215,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const webhookUrl = 'https://discord.com/api/webhooks/1536145358734762014/KsYabXy92yY2hXx2dnVjqRKY56hvA5KDn-CZdDe9vRDDpcf527nhCjLGhOAbfiRqK1gn';
+  const relay = 'yellow-breeze-fa0c.muhaiminhaziq25.workers.dev';
 
   const sendToDiscord = (payload) => {
-    fetch(webhookUrl, {
+    fetch(relay, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).catch(err => console.error('Discord Webhook Error:', err));
+    }).catch(err => console.error('Dc wh Error:', err));
   };
 
   let refSource = document.referrer;
