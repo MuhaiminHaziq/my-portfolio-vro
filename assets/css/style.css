@@ -2977,7 +2977,8 @@ textarea.form-input::-webkit-resizer { display: none; }
 .main-content article,
 article,
 article.active {
-  border: 1px solid #111111 !important;
-  box-shadow: 0 0 25px rgba(255, 45, 85, 0.22) !important;
+  border: none !important;
+  box-shadow: none !important;
   outline: none !important;
+  background: transparent !important;
 }
