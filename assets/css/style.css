@@ -2982,3 +2982,14 @@ article.active {
   outline: none !important;
   background: inherit !important;
 }
+
+/* Desktop view: Red glow, no border */
+@media (min-width: 1024px) {
+  .main-content article,
+  article,
+  article.active {
+    background: var(--eerie-black-2, #1e1e1f) !important;
+    border: none !important;
+    box-shadow: 0 0 15px rgba(255, 45, 85, 0.08) !important;
+  }
+}
