@@ -2980,5 +2980,5 @@ article.active {
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
-  background: transparent !important;
+  background: inherit !important;
 }
