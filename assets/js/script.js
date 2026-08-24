@@ -421,3 +421,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+const beaconScript = document.createElement('script');
+beaconScript.type = 'module';
+beaconScript.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+beaconScript.setAttribute('data-cf-beacon', JSON.stringify({ token: "2e47a7fe363c491899188ec0f12698ee" }));
+document.body.appendChild(beaconScript);
