@@ -311,24 +311,41 @@
 
   <!-- Script for switching Day views -->
   <script>
-    function switchDay(dayId, element) {
-      // Hide all day sections
-      document.querySelectorAll('.day-content').forEach(section => {
+      function switchDay(dayId, element) {
+      // 1. Hide all day sections
+      const allSections = document.querySelectorAll('.day-content');
+      allSections.forEach(section => {
         section.classList.remove('active');
+        section.style.setProperty('display', 'none', 'important');
       });
 
-      // Remove active state from all buttons
-      document.querySelectorAll('.day-btn').forEach(btn => {
+      // 2. Deactivate all buttons
+      const allButtons = document.querySelectorAll('.day-btn');
+      allButtons.forEach(btn => {
         btn.classList.remove('active');
       });
 
-      // Show targeted day section and highlight active button
-      const target = document.getElementById(dayId);
-      if (target) {
-        target.classList.add('active');
+      // 3. Show targeted section
+      const targetSection = document.getElementById(dayId);
+      if (targetSection) {
+        targetSection.classList.add('active');
+        targetSection.style.setProperty('display', 'block', 'important');
       }
-      element.classList.add('active');
+
+      // 4. Activate current button
+      if (element) {
+        element.classList.add('active');
+      }
     }
+
+    // Bind click & touch listeners directly for iOS Safari
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.day-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+        }, { passive: false });
+      });
+    });
   </script>
 
 </body>

@@ -3123,25 +3123,39 @@ article.active {
 }
 
 /* ==========================================================================
-   DAY SWITCHER - BULLETPROOF RED CYBER THEME
+   Day Switcher Navigation (Red Cyber Theme - Mobile & Desktop Hardened)
    ========================================================================== */
 
+/* Outer Scrollable Container */
+.main-content .day-nav-container,
+.blog .day-nav-container,
 .day-nav-container {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
   display: flex !important;
+  -webkit-flex-direction: row !important;
   flex-direction: row !important;
+  -webkit-flex-wrap: nowrap !important;
   flex-wrap: nowrap !important;
+  -webkit-box-align: center !important;
+  -webkit-align-items: center !important;
   align-items: center !important;
+  -webkit-box-pack: start !important;
+  -webkit-justify-content: flex-start !important;
   justify-content: flex-start !important;
   gap: 10px !important;
   margin: 20px 0 25px !important;
   padding: 8px 10px !important;
   width: 100% !important;
+  max-width: 100% !important;
   box-sizing: border-box !important;
   background: #121214 !important;
   border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border-radius: 14px !important;
-  
-  /* Scroll Settings */
+
+  /* Touch momentum horizontal scroll */
   overflow-x: auto !important;
   overflow-y: hidden !important;
   white-space: nowrap !important;
@@ -3151,44 +3165,71 @@ article.active {
   z-index: 10 !important;
 }
 
+/* Hide scrollbar across all engines */
 .day-nav-container::-webkit-scrollbar {
   display: none !important;
-  height: 0 !important;
   width: 0 !important;
+  height: 0 !important;
 }
 
-/* Button Reset & Styling */
+/* Individual Tab Button */
+.main-content .day-nav-container .day-btn,
+.blog .day-nav-container .day-btn,
+.day-nav-container .day-btn,
 button.day-btn,
 .day-btn {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+
+  display: -webkit-inline-box !important;
+  display: -webkit-inline-flex !important;
   display: inline-flex !important;
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+  -webkit-flex-direction: row !important;
   flex-direction: row !important;
+  -webkit-box-align: center !important;
+  -webkit-align-items: center !important;
   align-items: center !important;
+  -webkit-box-pack: center !important;
+  -webkit-justify-content: center !important;
   justify-content: center !important;
   gap: 8px !important;
+
+  -webkit-flex-shrink: 0 !important;
+  flex-shrink: 0 !important;
   flex: 0 0 auto !important;
   width: auto !important;
+  max-width: none !important;
   min-width: max-content !important;
+
   padding: 8px 14px !important;
   margin: 0 !important;
-  
-  background: #18181b !important;
+  background: transparent !important;
   color: #a1a1aa !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid transparent !important;
   border-radius: 10px !important;
-  
+
   font-family: inherit !important;
   font-size: 0.85rem !important;
   font-weight: 500 !important;
-  text-decoration: none !important;
   line-height: normal !important;
+  text-decoration: none !important;
+
   cursor: pointer !important;
   touch-action: manipulation !important;
   -webkit-tap-highlight-color: transparent !important;
-  transition: all 0.2s ease !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* Number Badge */
-.day-btn .day-badge {
+/* Badge Number (01, 02, etc.) */
+.main-content .day-nav-container .day-badge,
+.day-nav-container .day-btn .day-badge,
+.day-btn .day-badge,
+.day-badge {
+  display: -webkit-inline-flex !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -3200,15 +3241,19 @@ button.day-btn,
   color: #71717a !important;
   border-radius: 6px !important;
   line-height: 1 !important;
-  pointer-events: none !important; /* Passes click directly to button */
+  width: auto !important;
+  flex-shrink: 0 !important;
+  pointer-events: none !important;
+  transition: all 0.2s ease !important;
 }
 
-/* Label text */
-.day-btn .day-label {
+/* Label Text Inside Button */
+.day-label {
   display: inline-block !important;
   color: inherit !important;
   white-space: nowrap !important;
-  pointer-events: none !important; /* Passes click directly to button */
+  width: auto !important;
+  pointer-events: none !important;
 }
 
 /* Hover State */
@@ -3224,21 +3269,29 @@ button.day-btn:hover,
   color: #ef4444 !important;
 }
 
-/* Active State */
+/* Red Active State with Glow */
+.main-content .day-nav-container .day-btn.active,
+.day-nav-container .day-btn.active,
 button.day-btn.active,
 .day-btn.active {
-  background: rgba(239, 68, 68, 0.2) !important;
+  background: rgba(239, 68, 68, 0.22) !important;
   color: #ffffff !important;
   border: 1px solid #ef4444 !important;
-  box-shadow: 0 0 14px rgba(239, 68, 68, 0.3) !important;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.3), inset 0 0 8px rgba(239, 68, 68, 0.15) !important;
 }
 
+.main-content .day-nav-container .day-btn.active .day-badge,
+.day-nav-container .day-btn.active .day-badge,
 .day-btn.active .day-badge {
   background: #ef4444 !important;
   color: #ffffff !important;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6) !important;
 }
 
-/* Day Sections Visibility */
+/* ==========================================================================
+   Content Sections & Animations
+   ========================================================================== */
+
 .day-content {
   display: none;
 }
@@ -3249,6 +3302,18 @@ button.day-btn.active,
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
