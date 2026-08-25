@@ -41,18 +41,29 @@
           <h2 class="h2 article-title">Commando Training CTF 2026</h2>
         </header>
 
-        <!-- DAY SWITCHER / BREADCRUMBS -->
-        <div class="day-nav-container">
-            <button class="day-btn active" onclick="switchDay('day1', this)">Day 1 &bull; Attack & Defense</button>
-            <span class="day-divider">/</span>
-            <button class="day-btn" onclick="switchDay('day2', this)">Day 2 &bull; Cryptography</button>
-            <span class="day-divider">/</span>
-            <button class="day-btn" onclick="switchDay('day3', this)">Day 3 &bull; Boot To Root</button>
-            <span class="day-divider">/</span>
-            <button class="day-btn" onclick="switchDay('day4', this)">Day 4 &bull; Malware</button>
-            <span class="day-divider">/</span>
-            <button class="day-btn" onclick="switchDay('day4', this)">Day 4 &bull; Web exploitation</button>
-        </div>
+        <!-- DAY SWITCHER / TACTICAL TABS -->
+      <div class="day-nav-container">
+        <button class="day-btn active" onclick="switchDay('day1', this)">
+          <span class="day-badge">01</span>
+          <span class="day-label">Attack & Defence</span>
+        </button>
+        <button class="day-btn" onclick="switchDay('day2', this)">
+          <span class="day-badge">02</span>
+          <span class="day-label">Cryptography</span>
+        </button>
+        <button class="day-btn" onclick="switchDay('day3', this)">
+          <span class="day-badge">03</span>
+          <span class="day-label">Boot To Root</span>
+        </button>
+        <button class="day-btn" onclick="switchDay('day4', this)">
+          <span class="day-badge">04</span>
+          <span class="day-label">Malware</span>
+        </button>
+        <button class="day-btn" onclick="switchDay('day5', this)">
+          <span class="day-badge">05</span>
+          <span class="day-label">Web Exploitation</span>
+        </button>
+      </div>
 
         <!-- ================= DAY 1 CONTENT ================= -->
         <section id="day1" class="blog-detail-content day-content active">
@@ -241,6 +252,45 @@
         </div>
       </div> -->
     </section>
+
+     <!-- ================= DAY 5 CONTENT ================= -->
+      <section id="day5" class="blog-detail-content day-content">
+        <div style="margin-bottom: 16px;">
+          <h3 class="h3" style="margin-bottom: 4px; color: hsl(0, 0%, 98%); font-weight: 600;">Web Exploitation</h3>
+          <time datetime="2026-07-30" style="font-size: 0.8rem; color: hsl(0, 0%, 55%); font-weight: 400; display: inline-block;">
+            30 July 2026
+          </time>
+        </div>
+
+        <!-- Terminal Status Card -->
+        <div style="background: hsl(240, 2%, 10%); border: 1px solid hsl(0, 0%, 20%); border-radius: 12px; padding: 20px; margin-bottom: 24px; position: relative; overflow: hidden;">
+          <!-- Top Bar -->
+          <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid hsl(0, 0%, 18%); padding-bottom: 12px; margin-bottom: 16px;">
+            <div style="display: flex; gap: 6px;">
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+            </div>
+            <span style="font-size: 0.75rem; color: hsl(0, 0%, 50%); font-family: monospace;">day5_web_exploit.log</span>
+            <span style="font-size: 0.7rem; color: #ffdb70; background: rgba(255, 219, 112, 0.1); border: 1px solid rgba(255, 219, 112, 0.3); padding: 2px 8px; border-radius: 20px; font-weight: 500;">PENDING WRITEUP</span>
+          </div>
+
+          <!-- Terminal Body -->
+          <div style="font-family: monospace; font-size: 0.85rem; line-height: 1.6; color: hsl(0, 0%, 75%);">
+            <p style="margin: 0 0 6px;"><span style="color: #27c93f;">root@commando:~$</span> ffuf -u http://target.ctf/FUZZ -w /usr/share/wordlists/dirb/common.txt</p>
+            <p style="margin: 0 0 6px; color: hsl(0, 0%, 50%);">> Endpoint enumeration & payload injection analysis incoming...</p>
+            <p style="margin: 0; color: #ffdb70;"><span style="color: #27c93f;">root@commando:~$</span> echo "Web challenge writeup & exploit walkthrough soon."<span style="display: inline-block; width: 8px; height: 14px; background: #ffdb70; margin-left: 4px; vertical-align: middle; animation: blink 1s step-start infinite;"></span></p>
+          </div>
+        </div>
+
+        <!-- <div class="gallery-section">
+          <div class="journey-gallery">
+            <figure class="gallery-card">
+              <img src="./assets/images/opuc/OPUCC8.jpg" alt="Web Exploitation Flag Acquired" loading="lazy">
+            </figure>
+          </div>
+        </div> -->
+      </section>
 
       </article>
 
