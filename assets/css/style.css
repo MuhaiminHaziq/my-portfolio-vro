@@ -2995,88 +2995,131 @@ article.active {
 }
 
 /* ==========================================================================
-   Day Switcher Navigation (Red Cyber Theme)
+   Day Switcher Navigation (Red Cyber Theme - Mobile Proof)
    ========================================================================== */
 
+/* Outer scrollable container */
+.main-content .day-nav-container,
+.blog .day-nav-container,
 .day-nav-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 20px 0 25px;
-  padding: 8px;
-  background: rgba(18, 18, 20, 0.85);
-  border: 1px solid rgba(255, 60, 60, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 14px;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  margin: 20px 0 25px !important;
+  padding: 8px 10px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  background: rgba(18, 18, 20, 0.85) !important;
+  border: 1px solid rgba(255, 60, 60, 0.18) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-radius: 14px !important;
 
-  /* Horizontal scroll configuration */
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
+  /* Force horizontal swiping */
+  overflow-x: scroll !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important; /* Firefox */
 }
 
-/* Hide scrollbar for Chrome, Safari and Edge */
+/* Hide scrollbar */
 .day-nav-container::-webkit-scrollbar {
-  display: none;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
+/* Individual tab button */
+.main-content .day-nav-container .day-btn,
+.blog .day-nav-container .day-btn,
+.day-nav-container .day-btn,
 .day-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  color: #a1a1aa;
-  border: 1px solid transparent;
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: inherit;
-  flex-shrink: 0;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  flex: 0 0 auto !important; /* Prevents button from shrinking or expanding */
+  flex-shrink: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: fit-content !important;
+  margin: 0 !important;
+  background: transparent !important;
+  color: #a1a1aa !important;
+  border: 1px solid transparent !important;
+  padding: 8px 14px !important;
+  border-radius: 10px !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-family: inherit !important;
+  text-decoration: none !important;
+  line-height: normal !important;
+  white-space: nowrap !important;
 }
 
+/* Badge number (01, 02, etc.) */
+.main-content .day-nav-container .day-badge,
+.day-nav-container .day-btn .day-badge,
 .day-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 2px 6px;
-  background: rgba(255, 255, 255, 0.05);
-  color: #71717a;
-  border-radius: 6px;
-  transition: all 0.25s ease;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: monospace !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  padding: 2px 6px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #71717a !important;
+  border-radius: 6px !important;
+  transition: all 0.25s ease !important;
+  line-height: 1 !important;
+  width: auto !important;
+  flex-shrink: 0 !important;
 }
 
+/* Label text inside button */
+.day-label {
+  display: inline-block !important;
+  white-space: nowrap !important;
+  width: auto !important;
+}
+
+/* Hover state */
 .day-btn:hover {
-  color: #ffffff;
-  background: rgba(255, 50, 50, 0.08);
-  border-color: rgba(255, 50, 50, 0.2);
+  color: #ffffff !important;
+  background: rgba(255, 50, 50, 0.08) !important;
+  border-color: rgba(255, 50, 50, 0.25) !important;
 }
 
 .day-btn:hover .day-badge {
-  color: #ff5555;
-  background: rgba(255, 50, 50, 0.15);
+  color: #ff5555 !important;
+  background: rgba(255, 50, 50, 0.15) !important;
 }
 
 /* Red Active State with Glow */
+.main-content .day-nav-container .day-btn.active,
+.day-nav-container .day-btn.active,
 .day-btn.active {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.22) 0%, rgba(185, 28, 28, 0.1) 100%);
-  color: #ffffff;
-  border: 1px solid rgba(239, 68, 68, 0.55);
-  box-shadow: 0 0 16px rgba(239, 68, 68, 0.2), inset 0 0 8px rgba(239, 68, 68, 0.15);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.22) 0%, rgba(185, 28, 28, 0.12) 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(239, 68, 68, 0.6) !important;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.25), inset 0 0 8px rgba(239, 68, 68, 0.15) !important;
 }
 
+.main-content .day-nav-container .day-btn.active .day-badge,
+.day-nav-container .day-btn.active .day-badge,
 .day-btn.active .day-badge {
-  background: #ef4444;
-  color: #ffffff;
-  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6) !important;
 }
 
 /* ==========================================================================
@@ -3084,12 +3127,12 @@ article.active {
    ========================================================================== */
 
 .day-content {
-  display: none;
-  animation: fadeIn 0.3s ease;
+  display: none !important;
 }
 
 .day-content.active {
-  display: block;
+  display: block !important;
+  animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
