@@ -42,34 +42,28 @@
         </header>
 
        <!-- DAY SWITCHER / TACTICAL TABS -->
-      <div class="day-nav-container" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; gap: 8px !important; margin: 20px 0 25px !important; padding: 8px !important; width: 100% !important; box-sizing: border-box !important; background: rgba(18, 18, 20, 0.85) !important; border: 1px solid rgba(255, 60, 60, 0.15) !important; border-radius: 14px !important; overflow-x: auto !important; overflow-y: hidden !important; white-space: nowrap !important; -webkit-overflow-scrolling: touch !important;">
-        
-        <button class="day-btn active" onclick="switchDay('day1', this)" style="display: inline-flex !important; flex-direction: row !important; align-items: center !important; flex-shrink: 0 !important; width: auto !important;">
-          <span class="day-badge" style="display: inline-block !important; width: auto !important;">01</span>
-          <span class="day-label" style="display: inline-block !important; width: auto !important;">Attack & Defence</span>
-        </button>
-
-        <button class="day-btn" onclick="switchDay('day2', this)" style="display: inline-flex !important; flex-direction: row !important; align-items: center !important; flex-shrink: 0 !important; width: auto !important;">
-          <span class="day-badge" style="display: inline-block !important; width: auto !important;">02</span>
-          <span class="day-label" style="display: inline-block !important; width: auto !important;">Cryptography</span>
-        </button>
-
-        <button class="day-btn" onclick="switchDay('day3', this)" style="display: inline-flex !important; flex-direction: row !important; align-items: center !important; flex-shrink: 0 !important; width: auto !important;">
-          <span class="day-badge" style="display: inline-block !important; width: auto !important;">03</span>
-          <span class="day-label" style="display: inline-block !important; width: auto !important;">Boot To Root</span>
-        </button>
-
-        <button class="day-btn" onclick="switchDay('day4', this)" style="display: inline-flex !important; flex-direction: row !important; align-items: center !important; flex-shrink: 0 !important; width: auto !important;">
-          <span class="day-badge" style="display: inline-block !important; width: auto !important;">04</span>
-          <span class="day-label" style="display: inline-block !important; width: auto !important;">Malware</span>
-        </button>
-
-        <button class="day-btn" onclick="switchDay('day5', this)" style="display: inline-flex !important; flex-direction: row !important; align-items: center !important; flex-shrink: 0 !important; width: auto !important;">
-          <span class="day-badge" style="display: inline-block !important; width: auto !important;">05</span>
-          <span class="day-label" style="display: inline-block !important; width: auto !important;">Web Exploitation</span>
-        </button>
-        
-      </div>
+        <div class="day-nav-container">
+          <button type="button" class="day-btn active" onclick="switchDay('day1', this)">
+            <span class="day-badge">01</span>
+            <span class="day-label">Attack & Defence</span>
+          </button>
+          <button type="button" class="day-btn" onclick="switchDay('day2', this)">
+            <span class="day-badge">02</span>
+            <span class="day-label">Cryptography</span>
+          </button>
+          <button type="button" class="day-btn" onclick="switchDay('day3', this)">
+            <span class="day-badge">03</span>
+            <span class="day-label">Boot To Root</span>
+          </button>
+          <button type="button" class="day-btn" onclick="switchDay('day4', this)">
+            <span class="day-badge">04</span>
+            <span class="day-label">Malware</span>
+          </button>
+          <button type="button" class="day-btn" onclick="switchDay('day5', this)">
+            <span class="day-badge">05</span>
+            <span class="day-label">Web Exploitation</span>
+          </button>
+        </div>
 
         <!-- ================= DAY 1 CONTENT ================= -->
         <section id="day1" class="blog-detail-content day-content active">

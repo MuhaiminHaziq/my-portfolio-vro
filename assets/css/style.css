@@ -3123,31 +3123,132 @@ article.active {
 }
 
 /* ==========================================================================
-   Content Sections & Animations
+   DAY SWITCHER - BULLETPROOF RED CYBER THEME
    ========================================================================== */
 
-.day-content {
+.day-nav-container {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  margin: 20px 0 25px !important;
+  padding: 8px 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: #121214 !important;
+  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  border-radius: 14px !important;
+  
+  /* Scroll Settings */
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+.day-nav-container::-webkit-scrollbar {
   display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Button Reset & Styling */
+button.day-btn,
+.day-btn {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: max-content !important;
+  padding: 8px 14px !important;
+  margin: 0 !important;
+  
+  background: #18181b !important;
+  color: #a1a1aa !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  
+  font-family: inherit !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  line-height: normal !important;
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Number Badge */
+.day-btn .day-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: monospace !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  padding: 2px 6px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #71717a !important;
+  border-radius: 6px !important;
+  line-height: 1 !important;
+  pointer-events: none !important; /* Passes click directly to button */
+}
+
+/* Label text */
+.day-btn .day-label {
+  display: inline-block !important;
+  color: inherit !important;
+  white-space: nowrap !important;
+  pointer-events: none !important; /* Passes click directly to button */
+}
+
+/* Hover State */
+button.day-btn:hover,
+.day-btn:hover {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+  color: #ffffff !important;
+}
+
+.day-btn:hover .day-badge {
+  background: rgba(239, 68, 68, 0.25) !important;
+  color: #ef4444 !important;
+}
+
+/* Active State */
+button.day-btn.active,
+.day-btn.active {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #ffffff !important;
+  border: 1px solid #ef4444 !important;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.3) !important;
+}
+
+.day-btn.active .day-badge {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+/* Day Sections Visibility */
+.day-content {
+  display: none;
 }
 
 .day-content.active {
   display: block !important;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.25s ease;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
