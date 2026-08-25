@@ -2995,55 +2995,61 @@ article.active {
 }
 
 /* ==========================================================================
-   Day Switcher Navigation (Red Cyber Theme)
+   Day Switcher Navigation (Mobile-Safe Red Theme)
    ========================================================================== */
 
 .day-nav-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 20px 0 25px;
-  padding: 8px;
-  background: rgba(18, 18, 20, 0.85);
-  border: 1px solid rgba(255, 60, 60, 0.15);
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 20px 0 25px !important;
+  padding: 8px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: rgba(18, 18, 20, 0.85) !important;
+  border: 1px solid rgba(255, 60, 60, 0.15) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-radius: 14px;
+  border-radius: 14px !important;
 
-  /* Horizontal scroll configuration */
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
+  /* Force horizontal scroll on mobile */
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none;
 }
 
-/* Hide scrollbar for Chrome, Safari and Edge */
 .day-nav-container::-webkit-scrollbar {
   display: none;
 }
 
 .day-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  color: #a1a1aa;
-  border: 1px solid transparent;
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: auto !important; /* Prevents mobile stylesheet from stretching to 100% */
+  min-width: max-content !important;
+  background: transparent !important;
+  color: #a1a1aa !important;
+  border: 1px solid transparent !important;
+  padding: 8px 14px !important;
+  border-radius: 10px !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: inherit;
-  flex-shrink: 0;
+  flex-shrink: 0 !important; /* Prevents shrinking */
 }
 
 .day-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   font-family: monospace;
   font-size: 0.72rem;
   font-weight: 700;
@@ -3052,12 +3058,18 @@ article.active {
   color: #71717a;
   border-radius: 6px;
   transition: all 0.25s ease;
+  line-height: 1;
+}
+
+.day-label {
+  display: inline-block !important;
+  white-space: nowrap !important;
 }
 
 .day-btn:hover {
-  color: #ffffff;
-  background: rgba(255, 50, 50, 0.08);
-  border-color: rgba(255, 50, 50, 0.2);
+  color: #ffffff !important;
+  background: rgba(255, 50, 50, 0.08) !important;
+  border-color: rgba(255, 50, 50, 0.2) !important;
 }
 
 .day-btn:hover .day-badge {
@@ -3067,9 +3079,9 @@ article.active {
 
 /* Red Active State with Glow */
 .day-btn.active {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.22) 0%, rgba(185, 28, 28, 0.1) 100%);
-  color: #ffffff;
-  border: 1px solid rgba(239, 68, 68, 0.55);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.22) 0%, rgba(185, 28, 28, 0.1) 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(239, 68, 68, 0.55) !important;
   box-shadow: 0 0 16px rgba(239, 68, 68, 0.2), inset 0 0 8px rgba(239, 68, 68, 0.15);
 }
 
