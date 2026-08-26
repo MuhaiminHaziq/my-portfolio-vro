@@ -1438,6 +1438,126 @@ main {
   }
 }
 
+/* ==========================================================================
+   Rigid Physical Lanyard Drop & Pendulum Bounce (No Squeeze)
+   ========================================================================== */
+
+/* The entire lanyard drops from above the viewport */
+.badge-lanyard-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 15px auto 35px;
+  perspective: 1000px;
+  user-select: none;
+  -webkit-user-select: none;
+  width: 100%;
+  max-width: 360px;
+  transform-origin: top center;
+
+  /* Pure translation drop with elastic cubic-bezier easing */
+  animation: lanyardRigidDrop 1.5s cubic-bezier(0.22, 1.25, 0.36, 1) forwards;
+}
+
+/* Card keeps fixed scale and swings on its top pivot point */
+.ctf-pass-card {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(155deg, #18181b 0%, #0d0d0f 70%, #141417 100%);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 16px;
+  padding: 16px 18px 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(239, 68, 68, 0.12);
+  transform-origin: top center;
+  overflow: hidden;
+
+  /* Card tilts naturally from inertia, then transitions to gentle sway */
+  animation: 
+    badgePendulumSwing 1.5s ease-out forwards,
+    passFloating 6s ease-in-out 1.6s infinite;
+}
+
+/* Keyframe 1: Rigid Vertical Fall & Bounce (No scaleY distortion) */
+@keyframes lanyardRigidDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-420px);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(24px); /* Overshoots downward */
+  }
+  60% {
+    transform: translateY(-12px); /* Bounces upward */
+  }
+  75% {
+    transform: translateY(6px); /* Minor drop */
+  }
+  88% {
+    transform: translateY(-2px); /* Micro bounce */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Resting position */
+  }
+}
+
+/* Keyframe 2: Pendulum Swing Inertia (Card remains 1:1 scale) */
+@keyframes badgePendulumSwing {
+  0% {
+    transform: rotate(16deg) translateZ(24px);
+  }
+  38% {
+    transform: rotate(-12deg) translateZ(16px);
+  }
+  58% {
+    transform: rotate(7deg) translateZ(8px);
+  }
+  76% {
+    transform: rotate(-3.5deg) translateZ(3px);
+  }
+  88% {
+    transform: rotate(1.2deg) translateZ(0);
+  }
+  100% {
+    transform: rotate(0deg) translateZ(0);
+  }
+}
+
+/* Laser sweep scan line */
+.pass-hologram::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #ef4444, #ffffff, #ef4444, transparent);
+  box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.8);
+  opacity: 0;
+  animation: laserScan 1s ease-in-out 1.3s 1 forwards;
+}
+
+@keyframes laserScan {
+  0% {
+    top: -10%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
 .cert-link {
   display: inline-block;
   margin-top: 8px;
