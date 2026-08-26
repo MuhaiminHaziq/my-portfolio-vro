@@ -1241,95 +1241,99 @@ main {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Optional: adds depth on hover */
 }
 
-@media screen and (max-width: 768px) {
-  .terminal-container {
-    font-size: 0.75rem; /* Shrinks font slightly so the entire line fits on mobile */
-    line-height: 1.4;
-  }
-  
-  .prompt-user, .prompt-path, .prompt-tree {
-    font-size: 0.75rem;
-  }
+/* ==========================================================================
+   Kali Terminal Shell & Output Styling (Mobile & Desktop Responsive)
+   ========================================================================== */
 
-  body {
-    color: #ffffff;
-  }
+/* Terminal Outer Shell */
+.terminal-shell {
+  background: #0f0f12;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Ensure the paragraph wraps text naturally */
-.terminal-line {
+/* Window Header Bar */
+.terminal-header {
   display: flex;
-  flex-wrap: nowrap; /* Prevent prompt items from dropping to a new line */
   align-items: center;
-  overflow-x: auto; /* Adds subtle swipe scrolling if the prompt is wider than the screen */
-  white-space: nowrap;
+  justify-content: space-between;
+  background: #18181b;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Force elements to fit inline next to each other */
-.terminal-prompt {
-  color: #ff0055;
-  font-weight: bold;
-  margin-right: 6px;
-  display: inline;
+.terminal-dots {
+  display: flex;
+  gap: 6px;
 }
 
-#typed-text-1,
-#typed-text-2 {
-  display: inline;
+.terminal-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
-/* Fix cursor behavior so it sits right next to the last letter */
-.cursor {
-  display: inline;
-  font-weight: bold;
-  color: #ff0055;
-  margin-left: 1px;
-  animation: blink 0.8s infinite;
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+
+.terminal-title {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #71717a;
+  margin-right: auto;
+  margin-left: 14px;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
+/* Terminal Content Container */
+.terminal-body,
 .terminal-container {
+  padding: 18px 20px;
   font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
   font-size: 0.85rem;
-  line-height: 1.4;
+  line-height: 1.6;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.terminal-block {
-  margin-bottom: 20px;
-}
-
-/* Line 1: Top Prompt */
+/* Line 1: Kali Top Prompt */
 .prompt-line {
-  display: inline-flex;
-  flex-shrink: 0; /* Prevents the prompt symbols from squishing */
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
   white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 2px;
+}
+
+.prompt-line::-webkit-scrollbar {
+  display: none;
 }
 
 .prompt-tree {
-  color: #4e9a06; /* Kali Green */
+  color: #4e9a06;
   font-weight: bold;
 }
 
-.prompt-bracket {
+.prompt-bracket,
+.prompt-dash,
+.prompt-sqbracket {
   color: #4e9a06;
 }
 
-.prompt-user {
-  color: #3465a4; /* Kali Blue */
-  font-weight: bold;
-}
-
+.prompt-user,
 .prompt-at {
   color: #3465a4;
-  font-weight: normal;
-}
-
-.prompt-dash, .prompt-sqbracket {
-  color: #4e9a06;
+  font-weight: bold;
 }
 
 .prompt-path {
@@ -1337,54 +1341,100 @@ main {
   font-weight: bold;
 }
 
-/* Line 2: Flexbox forces $ and text onto the same line */
+/* Line 2: Kali Command Line */
 .command-line {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.command-line::-webkit-scrollbar {
+  display: none;
 }
 
 .prompt-symbol-group {
   display: inline-flex;
   white-space: nowrap;
-  margin-right: 8px;
   user-select: none;
 }
 
 .prompt-symbol {
   color: #3465a4;
   font-weight: bold;
+  margin-left: 2px;
 }
 
-.typed-wrapper {
-  flex: 1;
+.terminal-cmd {
+  color: #ffffff;
+  font-weight: 500;
 }
 
-.typed-text {
-  display: inline;
+/* File Output Area */
+.terminal-output {
+  color: #d4d4d8;
+  margin-left: 4px;
+  border-left: 2px solid rgba(239, 68, 68, 0.4);
+  padding-left: 14px;
+  margin-top: 8px;
 }
 
-/* Block Cursor */
+.terminal-output p {
+  margin: 0 0 10px 0;
+  line-height: 1.6;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.terminal-output p:last-child {
+  margin-bottom: 0;
+}
+
+/* Blinking Terminal Cursor */
+.terminal-cursor,
 .block-cursor {
-  display: inline;
-  color: #ff0055;
+  display: inline-block;
+  color: #ef4444;
   font-weight: bold;
   margin-left: 2px;
-  text-shadow: 0 0 8px rgba(255, 0, 85, 0.8);
-  animation: blink 0.9s steps(2, start) infinite;
+  text-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+  animation: terminalBlink 0.9s steps(2, start) infinite;
 }
 
-@keyframes blink {
+@keyframes terminalBlink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
 
-/* Crisp terminal blink without fading delay */
-@keyframes blink {
-  0%, 100% {
-    opacity: 1;
+/* ==========================================================================
+   Mobile Optimization (< 768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+  .terminal-body,
+  .terminal-container {
+    padding: 14px 14px;
+    font-size: 0.76rem;
+    line-height: 1.5;
   }
-  50% {
-    opacity: 0;
+
+  .prompt-line,
+  .command-line {
+    font-size: 0.74rem;
+  }
+
+  .terminal-title {
+    font-size: 0.68rem;
+  }
+
+  .terminal-output {
+    padding-left: 10px;
+    margin-top: 6px;
   }
 }
 
@@ -3208,4 +3258,311 @@ button.day-btn.active,
   50% {
     opacity: 0;
   }
+}
+
+/* ==========================================================================
+   Tactical Operator ID Pass
+   ========================================================================== */
+
+.badge-lanyard-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 15px auto 35px;
+  perspective: 1000px;
+  user-select: none;
+  -webkit-user-select: none;
+  width: 100%;
+  max-width: 360px;
+}
+
+/* Mounting Top (Reel + Carabiner) */
+.lanyard-mount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -10px;
+}
+
+.lanyard-strap-top {
+  width: 24px;
+  height: 22px;
+  background: linear-gradient(90deg, #18181b 0%, #27272a 50%, #18181b 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+}
+
+.lanyard-reel {
+  width: 38px;
+  height: 38px;
+  background: radial-gradient(circle at 35% 35%, #27272a, #09090b);
+  border: 1.5px solid #3f3f46;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.reel-core {
+  width: 14px;
+  height: 14px;
+  background: #ef4444;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+.lanyard-carabiner {
+  width: 12px;
+  height: 18px;
+  border: 2.5px solid #71717a;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  margin-top: -2px;
+  background: transparent;
+}
+
+/* ID Card Body */
+.ctf-pass-card {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(155deg, #18181b 0%, #0d0d0f 70%, #141417 100%);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 16px;
+  padding: 16px 18px 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(239, 68, 68, 0.12);
+  transform-origin: top center;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.4, 1), box-shadow 0.2s ease;
+  overflow: hidden;
+  animation: passFloating 6s ease-in-out infinite;
+}
+
+@keyframes passFloating {
+  0%, 100% {
+    transform: rotate(0deg) translateZ(0);
+  }
+  30% {
+    transform: rotate(1.2deg) translateY(2px) translateZ(12px);
+  }
+  70% {
+    transform: rotate(-1.2deg) translateY(-2px) translateZ(12px);
+  }
+}
+
+/* Punch Hole for Badge */
+.card-slot-hole {
+  width: 44px;
+  height: 6px;
+  background: #09090b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  margin: 0 auto 12px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Header Section */
+.pass-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.pass-event {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fafafa;
+  letter-spacing: 0.5px;
+}
+
+.event-glow {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+.pass-security-tier {
+  font-family: monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Body & User Info */
+.pass-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.pass-photo-frame {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(239, 68, 68, 0.5);
+  background: #09090b;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.pass-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.pulse-indicator {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background: #22c55e;
+  border: 2px solid #18181b;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #22c55e;
+}
+
+.pass-details {
+  flex-grow: 1;
+}
+
+.pass-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.pass-title {
+  font-size: 0.75rem;
+  color: #a1a1aa;
+  margin-bottom: 8px;
+}
+
+.pass-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  font-family: monospace;
+  font-size: 0.68rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.stat-col {
+  display: flex;
+  gap: 4px;
+}
+
+.stat-k {
+  color: #71717a;
+}
+
+.stat-v {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Footer Section */
+.pass-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+}
+
+.smart-chip {
+  width: 24px;
+  height: 18px;
+  background: linear-gradient(135deg, #ca8a04 0%, #eab308 50%, #854d0e 100%);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  position: relative;
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.smart-chip::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 3px;
+  right: 3px;
+  bottom: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+}
+
+.barcode-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.laser-barcode {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 16px;
+}
+
+.laser-barcode span {
+  display: inline-block;
+  background: #a1a1aa;
+  height: 100%;
+  width: 2px;
+}
+
+.laser-barcode span:nth-child(2n) { width: 3px; }
+.laser-barcode span:nth-child(3n) { width: 1px; background: #ef4444; }
+.laser-barcode span:nth-child(5n) { width: 4px; }
+
+.serial-num {
+  font-family: monospace;
+  font-size: 0.62rem;
+  color: #71717a;
+  letter-spacing: 0.5px;
+}
+
+/* Holographic Foil Overlay */
+.pass-hologram {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 42%,
+    rgba(239, 68, 68, 0.1) 50%,
+    rgba(255, 255, 255, 0.03) 58%,
+    transparent 100%
+  );
+  pointer-events: none;
 }
