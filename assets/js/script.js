@@ -197,7 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(error => console.error('Sidebar injection error:', error));
   }
 });
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1. Device Mute Toggle Handler (?urmom=true / false)
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('urmom') === 'true') {
     localStorage.setItem('ignore_message', 'true');
@@ -207,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('on');
   }
 
+  // 2. Safety & Localhost Filters
   if (
     window.location.hostname === 'localhost' || 
     window.location.hostname === '127.0.0.1' ||
@@ -225,7 +227,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }).catch(err => console.error('Telemetry Error:', err));
   };
 
-  // 1. App Source & In-App Browser Detection
+  // 3. Device Brand & Hardware Model Identifier
+  async function getDeviceBrandInfo() {
+    const ua = navigator.userAgent || '';
+
+    // Check User-Agent Client Hints (Modern Android & Chromium)
+    if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+      try {
+        const hints = await navigator.userAgentData.getHighEntropyValues(['model', 'platform', 'platformVersion']);
+        if (hints.model) {
+          let brand = 'Android';
+          if (/SM-|SAMSUNG/i.test(hints.model)) brand = 'Samsung';
+          else if (/Pixel/i.test(hints.model)) brand = 'Google Pixel';
+          else if (/Xiaomi|Redmi|POCO/i.test(hints.model)) brand = 'Xiaomi';
+          else if (/CPH|OPPO/i.test(hints.model)) brand = 'OPPO';
+          else if (/RMX/i.test(hints.model)) brand = 'Realme';
+          else if (/V2|vivo/i.test(hints.model)) brand = 'Vivo';
+          else if (/ONEPLUS/i.test(hints.model)) brand = 'OnePlus';
+          else if (/HWI-|VOG-|ELE-|POT-/i.test(hints.model)) brand = 'Huawei';
+          return `${brand} (${hints.model})`;
+        }
+      } catch (e) {
+        // Fallback to User-Agent parsing if permissions fail
+      }
+    }
+
+    // Apple Devices (iOS / iPadOS)
+    if (/iPhone/i.test(ua)) {
+      const ratio = window.devicePixelRatio || 1;
+      const w = window.screen.width;
+      const h = window.screen.height;
+      return `Apple iPhone (${w}x${h} @${ratio}x)`;
+    }
+    if (/iPad/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+      return 'Apple iPad';
+    }
+
+    // Android User-Agent Parsing (Legacy / Fallback)
+    const androidMatch = ua.match(/Android\s+[\d\.]+;\s+([^;]+)\s+Build/i);
+    if (androidMatch && androidMatch[1]) {
+      const model = androidMatch[1].trim();
+      let brand = 'Android';
+      if (/SM-|SAMSUNG/i.test(model)) brand = 'Samsung';
+      else if (/Pixel/i.test(model)) brand = 'Google Pixel';
+      else if (/Redmi|Mi |POCO/i.test(model)) brand = 'Xiaomi';
+      else if (/CPH|OPPO/i.test(model)) brand = 'OPPO';
+      else if (/RMX/i.test(model)) brand = 'Realme';
+      else if (/V2/i.test(model)) brand = 'Vivo';
+      else if (/HUAWEI|HONOR/i.test(model)) brand = 'Huawei / Honor';
+      return `${brand} (${model})`;
+    }
+
+    // Desktop Platforms
+    if (/Windows NT/i.test(ua)) return 'Windows PC';
+    if (/Macintosh/i.test(ua)) return 'Apple Mac';
+    if (/Linux/i.test(ua)) return 'Linux Machine';
+
+    return navigator.platform || 'Unknown Device';
+  }
+
+  const deviceBrand = await getDeviceBrandInfo();
+
+  // 4. App Source & In-App Browser Sniffer
   const ua = navigator.userAgent || '';
   let inAppSource = 'Standard Browser';
   if (ua.includes('Instagram')) inAppSource = 'Instagram In-App';
@@ -235,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
   else if (ua.includes('musical_ly') || ua.includes('ByteLocale') || ua.includes('TikTok')) inAppSource = 'TikTok In-App';
   else if (ua.includes('Discord')) inAppSource = 'Discord Webview';
 
-  // 2. Referrer Source & Campaign Tracking
+  // 5. Referrer Source & Campaign Tagging
   let refSource = document.referrer;
   if (!refSource) {
     refSource = 'Direct Link (e.g. WhatsApp / Typed URL)';
@@ -251,12 +314,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const campaign = urlParams.get('utm_source') || urlParams.get('ref') || urlParams.get('src') || 'None';
 
-  // 3. Visitor Frequency Counter
+  // 6. Visitor Frequency Tracker
   let visitCount = parseInt(localStorage.getItem('site_visit_count') || '0', 10) + 1;
   localStorage.setItem('site_visit_count', visitCount.toString());
   const visitorType = visitCount === 1 ? 'First-Time Visitor' : `Returning (Visit #${visitCount})`;
 
-  // 4. Device Form Factor & Display Metrics
+  // 7. Screen & Form Factor Classification
   const screenW = window.screen.width;
   const screenH = window.screen.height;
   const minDimension = Math.min(screenW, screenH);
@@ -265,34 +328,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let deviceFormFactor = "Desktop Monitor";
   if (minDimension < 500 && isTouch) {
-    deviceFormFactor = "📱 Smartphone";
+    deviceFormFactor = "Smartphone";
   } else if (minDimension >= 500 && maxDimension <= 1024 && isTouch) {
-    deviceFormFactor = "📟 Tablet / iPad";
+    deviceFormFactor = "Tablet / iPad";
   } else if (screenW >= 1024 && screenW <= 1440 && !isTouch) {
-    deviceFormFactor = "💻 Laptop / Small Screen";
+    deviceFormFactor = "Laptop / Small Screen";
   } else if (screenW > 1440 && screenW <= 1920) {
-    deviceFormFactor = "🖥️ Desktop (Full HD)";
+    deviceFormFactor = "Desktop (Full HD)";
   } else if (screenW > 1920) {
-    deviceFormFactor = "🖥️ Ultra-Wide / 4K Monitor";
+    deviceFormFactor = "Ultra-Wide / 4K Monitor";
   } else if (isTouch) {
-    deviceFormFactor = "📱 Touch Device / Foldable";
+    deviceFormFactor = "Touch Device / Foldable";
   }
 
   const screenMetrics = `${deviceFormFactor}\n${screenW}x${screenH} (Viewport: ${window.innerWidth}x${window.innerHeight})`;
 
-  // 5. Hardware & System Specs
+  // 8. Hardware, Theme & Network Specs
   const cpuCores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} Cores` : 'Unknown Cores';
   const ramEstimate = navigator.deviceMemory ? `~${navigator.deviceMemory} GB RAM` : 'Unknown RAM';
   const deviceHardware = `${cpuCores} | ${ramEstimate}`;
-  const themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Dark Mode' : 'Light Mode';
   const userLang = `${navigator.language || 'Unknown'} (${Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown TZ'})`;
-  const devicePlatform = navigator.userAgentData?.platform || navigator.platform || 'Mobile / Desktop';
 
-  // 6. Network Speed Estimate
   const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const connSpeed = conn ? `${conn.effectiveType?.toUpperCase() || 'Network'} (~${conn.downlink || '?'} Mbps)` : 'Standard Connection';
 
-  // 7. IP & Geolocation Resolution
+  // 9. Fetch IP & Geolocation
   fetch('https://api.ipify.org?format=json')
     .then(res => res.json())
     .then(ipData => {
@@ -314,7 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: "IP Address", value: `\`${visitorIp}\``, inline: true },
                 { name: "Location", value: data.success ? `${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || ''}` : "Unknown Location", inline: true },
                 { name: "Network / ISP", value: `${data.connection?.isp || 'Unknown ISP'} (${connSpeed})`, inline: true },
-                { name: "Device & Platform", value: `${devicePlatform} (${inAppSource})`, inline: true },
+                { name: "Device Brand / Model", value: deviceBrand, inline: true },
+                { name: "Browser & App", value: inAppSource, inline: true },
                 { name: "Hardware Specs", value: deviceHardware, inline: true },
                 { name: "Display / Form Factor", value: screenMetrics, inline: true },
                 { name: "Referrer Source", value: refSource, inline: true },
@@ -341,10 +403,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const fallbackPayload = {
       embeds: [{
         title: "⚠️ New Portfolio Visitor (Fallback)",
-        color: 15105570,
+        color: 15105570, // Orange
         fields: [
           { name: "IP Address", value: `\`${ip}\``, inline: true },
-          { name: "Device & Platform", value: `${devicePlatform} (${inAppSource})`, inline: true },
+          { name: "Device Brand / Model", value: deviceBrand, inline: true },
+          { name: "Browser & App", value: inAppSource, inline: true },
           { name: "Hardware Specs", value: deviceHardware, inline: true },
           { name: "Display / Form Factor", value: screenMetrics, inline: true },
           { name: "Referrer Source", value: refSource, inline: true },
