@@ -222,22 +222,81 @@ document.addEventListener('DOMContentLoaded', () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).catch(err => console.error('Discord Webhook Error:', err));
+    }).catch(err => console.error('Telemetry Error:', err));
   };
 
+  // 1. App Source & In-App Browser Detection
+  const ua = navigator.userAgent || '';
+  let inAppSource = 'Standard Browser';
+  if (ua.includes('Instagram')) inAppSource = 'Instagram In-App';
+  else if (ua.includes('LinkedInApp')) inAppSource = 'LinkedIn In-App';
+  else if (ua.includes('WhatsApp')) inAppSource = 'WhatsApp Webview';
+  else if (ua.includes('FBAN') || ua.includes('FBAV')) inAppSource = 'Facebook In-App';
+  else if (ua.includes('musical_ly') || ua.includes('ByteLocale') || ua.includes('TikTok')) inAppSource = 'TikTok In-App';
+  else if (ua.includes('Discord')) inAppSource = 'Discord Webview';
+
+  // 2. Referrer Source & Campaign Tracking
   let refSource = document.referrer;
   if (!refSource) {
-    refSource = "Direct Link (e.g. WhatsApp / Typed URL)";
-  } else if (refSource.includes("instagram.com")) {
-    refSource = "Instagram Profile / In-App Browser";
+    refSource = 'Direct Link (e.g. WhatsApp / Typed URL)';
+  } else if (refSource.includes('instagram.com')) {
+    refSource = 'Instagram Profile / In-App Link';
+  } else if (refSource.includes('linkedin.com')) {
+    refSource = 'LinkedIn Feed / Profile';
+  } else if (refSource.includes('github.com')) {
+    refSource = 'GitHub Profile / Repo';
   } else {
     refSource = `[${refSource}](${refSource})`;
   }
 
+  const campaign = urlParams.get('utm_source') || urlParams.get('ref') || urlParams.get('src') || 'None';
+
+  // 3. Visitor Frequency Counter
+  let visitCount = parseInt(localStorage.getItem('site_visit_count') || '0', 10) + 1;
+  localStorage.setItem('site_visit_count', visitCount.toString());
+  const visitorType = visitCount === 1 ? 'First-Time Visitor' : `Returning (Visit #${visitCount})`;
+
+  // 4. Device Form Factor & Display Metrics
+  const screenW = window.screen.width;
+  const screenH = window.screen.height;
+  const minDimension = Math.min(screenW, screenH);
+  const maxDimension = Math.max(screenW, screenH);
+  const isTouch = navigator.maxTouchPoints > 0;
+
+  let deviceFormFactor = "Desktop Monitor";
+  if (minDimension < 500 && isTouch) {
+    deviceFormFactor = "📱 Smartphone";
+  } else if (minDimension >= 500 && maxDimension <= 1024 && isTouch) {
+    deviceFormFactor = "📟 Tablet / iPad";
+  } else if (screenW >= 1024 && screenW <= 1440 && !isTouch) {
+    deviceFormFactor = "💻 Laptop / Small Screen";
+  } else if (screenW > 1440 && screenW <= 1920) {
+    deviceFormFactor = "🖥️ Desktop (Full HD)";
+  } else if (screenW > 1920) {
+    deviceFormFactor = "🖥️ Ultra-Wide / 4K Monitor";
+  } else if (isTouch) {
+    deviceFormFactor = "📱 Touch Device / Foldable";
+  }
+
+  const screenMetrics = `${deviceFormFactor}\n${screenW}x${screenH} (Viewport: ${window.innerWidth}x${window.innerHeight})`;
+
+  // 5. Hardware & System Specs
+  const cpuCores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} Cores` : 'Unknown Cores';
+  const ramEstimate = navigator.deviceMemory ? `~${navigator.deviceMemory} GB RAM` : 'Unknown RAM';
+  const deviceHardware = `${cpuCores} | ${ramEstimate}`;
+  const themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const userLang = `${navigator.language || 'Unknown'} (${Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown TZ'})`;
+  const devicePlatform = navigator.userAgentData?.platform || navigator.platform || 'Mobile / Desktop';
+
+  // 6. Network Speed Estimate
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const connSpeed = conn ? `${conn.effectiveType?.toUpperCase() || 'Network'} (~${conn.downlink || '?'} Mbps)` : 'Standard Connection';
+
+  // 7. IP & Geolocation Resolution
   fetch('https://api.ipify.org?format=json')
     .then(res => res.json())
     .then(ipData => {
-      const visitorIp = ipData.ip || "Unknown IP";
+      const visitorIp = ipData.ip || 'Unknown IP';
 
       fetch(`https://ipwho.is/${visitorIp}`)
         .then(res => res.json())
@@ -254,11 +313,16 @@ document.addEventListener('DOMContentLoaded', () => {
               fields: [
                 { name: "IP Address", value: `\`${visitorIp}\``, inline: true },
                 { name: "Location", value: data.success ? `${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || ''}` : "Unknown Location", inline: true },
-                { name: "Network / ISP", value: data.connection?.isp || "Mobile Data / Unknown ISP", inline: true },
-                { name: "Device / Platform", value: navigator.userAgentData?.platform || navigator.platform || "Mobile Browser", inline: true },
+                { name: "Network / ISP", value: `${data.connection?.isp || 'Unknown ISP'} (${connSpeed})`, inline: true },
+                { name: "Device & Platform", value: `${devicePlatform} (${inAppSource})`, inline: true },
+                { name: "Hardware Specs", value: deviceHardware, inline: true },
+                { name: "Display / Form Factor", value: screenMetrics, inline: true },
                 { name: "Referrer Source", value: refSource, inline: true },
+                { name: "Campaign / Tag", value: `\`${campaign}\``, inline: true },
+                { name: "Visitor Frequency", value: visitorType, inline: true },
+                { name: "Locale & Theme", value: `${userLang} | ${themeMode}`, inline: true },
                 { name: "Page Visited", value: `\`${window.location.pathname}\``, inline: true },
-                { name: "Time", value: new Date().toLocaleString(), inline: false }
+                { name: "Timestamp", value: new Date().toLocaleString(), inline: true }
               ],
             }]
           };
@@ -266,24 +330,29 @@ document.addEventListener('DOMContentLoaded', () => {
           sendToDiscord(payload);
         })
         .catch(() => {
-          sendFallbackLog(visitorIp, refSource);
+          sendFallbackLog(visitorIp);
         });
     })
     .catch(() => {
-      sendFallbackLog("Unknown IP", refSource);
+      sendFallbackLog('Unknown IP');
     });
 
-  function sendFallbackLog(ip, ref) {
+  function sendFallbackLog(ip) {
     const fallbackPayload = {
       embeds: [{
-        title: "New Portfolio Visitor",
+        title: "⚠️ New Portfolio Visitor (Fallback)",
         color: 15105570,
         fields: [
           { name: "IP Address", value: `\`${ip}\``, inline: true },
-          { name: "Device / Platform", value: navigator.platform || "Mobile Browser", inline: true },
-          { name: "Referrer Source", value: ref, inline: true },
+          { name: "Device & Platform", value: `${devicePlatform} (${inAppSource})`, inline: true },
+          { name: "Hardware Specs", value: deviceHardware, inline: true },
+          { name: "Display / Form Factor", value: screenMetrics, inline: true },
+          { name: "Referrer Source", value: refSource, inline: true },
+          { name: "Campaign / Tag", value: `\`${campaign}\``, inline: true },
+          { name: "Visitor Frequency", value: visitorType, inline: true },
+          { name: "Locale & Theme", value: `${userLang} | ${themeMode}`, inline: true },
           { name: "Page Visited", value: `\`${window.location.pathname}\``, inline: true },
-          { name: "Time", value: new Date().toLocaleString(), inline: false }
+          { name: "Timestamp", value: new Date().toLocaleString(), inline: true }
         ],
       }]
     };
