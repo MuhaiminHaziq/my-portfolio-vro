@@ -3381,85 +3381,382 @@ button.day-btn.active,
 }
 
 /* ==========================================================================
-   Tactical Operator ID Pass
+   Tactical Operator ID Pass (Mobile & Desktop Hardened)
    ========================================================================== */
 
+/* Outer Hanging Assembly */
 .badge-lanyard-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 15px auto 35px;
-  perspective: 1000px;
-  user-select: none;
-  -webkit-user-select: none;
-  width: 100%;
-  max-width: 360px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 15px auto 35px !important;
+  perspective: 1000px !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  width: 100% !important;
+  max-width: 360px !important;
+  box-sizing: border-box !important;
+  transform-origin: top center !important;
+
+  /* Rigid Gravity Drop Animation */
+  animation: lanyardRigidDrop 1.5s cubic-bezier(0.22, 1.25, 0.36, 1) forwards !important;
 }
 
 /* Mounting Top (Reel + Carabiner) */
 .lanyard-mount {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  margin-bottom: -10px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  position: relative !important;
+  z-index: 2 !important;
+  margin-bottom: -10px !important;
 }
 
 .lanyard-strap-top {
-  width: 24px;
-  height: 22px;
-  background: linear-gradient(90deg, #18181b 0%, #27272a 50%, #18181b 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+  width: 24px !important;
+  height: 22px !important;
+  background: linear-gradient(90deg, #18181b 0%, #27272a 50%, #18181b 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8) !important;
 }
 
 .lanyard-reel {
-  width: 38px;
-  height: 38px;
-  background: radial-gradient(circle at 35% 35%, #27272a, #09090b);
-  border: 1.5px solid #3f3f46;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  width: 38px !important;
+  height: 38px !important;
+  background: radial-gradient(circle at 35% 35%, #27272a, #09090b) !important;
+  border: 1.5px solid #3f3f46 !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.2) !important;
 }
 
 .reel-core {
-  width: 14px;
-  height: 14px;
-  background: #ef4444;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #ef4444;
+  width: 14px !important;
+  height: 14px !important;
+  background: #ef4444 !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 8px #ef4444 !important;
 }
 
 .lanyard-carabiner {
-  width: 12px;
-  height: 18px;
-  border: 2.5px solid #71717a;
-  border-top: none;
-  border-radius: 0 0 6px 6px;
-  margin-top: -2px;
-  background: transparent;
+  width: 12px !important;
+  height: 18px !important;
+  border: 2.5px solid #71717a !important;
+  border-top: none !important;
+  border-radius: 0 0 6px 6px !important;
+  margin-top: -2px !important;
+  background: transparent !important;
 }
 
 /* ID Card Body */
 .ctf-pass-card {
-  position: relative;
-  z-index: 3;
-  width: 100%;
-  box-sizing: border-box;
-  background: linear-gradient(155deg, #18181b 0%, #0d0d0f 70%, #141417 100%);
-  border: 1px solid rgba(239, 68, 68, 0.35);
-  border-radius: 16px;
-  padding: 16px 18px 14px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(239, 68, 68, 0.12);
-  transform-origin: top center;
-  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.4, 1), box-shadow 0.2s ease;
-  overflow: hidden;
-  animation: passFloating 6s ease-in-out infinite;
+  position: relative !important;
+  z-index: 3 !important;
+  width: 100% !important;
+  max-width: 360px !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(155deg, #18181b 0%, #0d0d0f 70%, #141417 100%) !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+  border-radius: 16px !important;
+  padding: 16px 18px 14px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(239, 68, 68, 0.12) !important;
+  transform-origin: top center !important;
+  overflow: hidden !important;
+
+  /* Natural Pendulum Swing followed by Gentle Float */
+  animation: 
+    badgePendulumSwing 1.5s ease-out forwards,
+    passFloating 6s ease-in-out 1.6s infinite !important;
+}
+
+/* Slot Punch */
+.card-slot-hole {
+  width: 44px !important;
+  height: 6px !important;
+  background: #09090b !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  margin: 0 auto 12px !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Header Section */
+.pass-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding-bottom: 10px !important;
+  margin-bottom: 14px !important;
+}
+
+.pass-event {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  color: #fafafa !important;
+  letter-spacing: 0.5px !important;
+}
+
+.event-glow {
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: #ef4444 !important;
+  box-shadow: 0 0 8px #ef4444 !important;
+}
+
+.pass-security-tier {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.12) !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+  padding: 2px 8px !important;
+  border-radius: 4px !important;
+}
+
+/* Body & User Info */
+.pass-main {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  margin-bottom: 14px !important;
+}
+
+/* Strict Mobile Image Sizing Container */
+.pass-photo-frame {
+  position: relative !important;
+  width: 68px !important;
+  height: 68px !important;
+  min-width: 68px !important;
+  max-width: 68px !important;
+  min-height: 68px !important;
+  max-height: 68px !important;
+  border-radius: 12px !important;
+  border: 1.5px solid rgba(239, 68, 68, 0.5) !important;
+  background: #09090b !important;
+  padding: 2px !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+  overflow: hidden !important;
+}
+
+.pass-avatar {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 64px !important;
+  max-height: 64px !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
+  display: block !important;
+}
+
+.pulse-indicator {
+  position: absolute !important;
+  bottom: -2px !important;
+  right: -2px !important;
+  width: 10px !important;
+  height: 10px !important;
+  background: #22c55e !important;
+  border: 2px solid #18181b !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 6px #22c55e !important;
+}
+
+.pass-details {
+  flex-grow: 1 !important;
+  overflow: hidden !important;
+}
+
+.pass-name {
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  line-height: 1.2 !important;
+}
+
+.pass-title {
+  font-size: 0.72rem !important;
+  color: #a1a1aa !important;
+  margin-bottom: 6px !important;
+}
+
+.pass-stats {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 6px !important;
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace !important;
+  font-size: 0.65rem !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+.stat-col {
+  display: flex !important;
+  gap: 4px !important;
+  white-space: nowrap !important;
+}
+
+.stat-k {
+  color: #71717a !important;
+}
+
+.stat-v {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* Footer Section */
+.pass-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1) !important;
+  padding-top: 10px !important;
+}
+
+.smart-chip {
+  width: 24px !important;
+  height: 18px !important;
+  background: linear-gradient(135deg, #ca8a04 0%, #eab308 50%, #854d0e 100%) !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  position: relative !important;
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.4) !important;
+}
+
+.smart-chip::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 4px !important;
+  left: 3px !important;
+  right: 3px !important;
+  bottom: 4px !important;
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
+  border-radius: 2px !important;
+}
+
+.barcode-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 3px !important;
+}
+
+.laser-barcode {
+  display: flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  height: 16px !important;
+}
+
+.laser-barcode span {
+  display: inline-block !important;
+  background: #a1a1aa !important;
+  height: 100% !important;
+  width: 2px !important;
+}
+
+.laser-barcode span:nth-child(2n) { width: 3px !important; }
+.laser-barcode span:nth-child(3n) { width: 1px !important; background: #ef4444 !important; }
+.laser-barcode span:nth-child(5n) { width: 4px !important; }
+
+.serial-num {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace !important;
+  font-size: 0.62rem !important;
+  color: #71717a !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Holographic Foil Layer */
+.pass-hologram {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 42%,
+    rgba(239, 68, 68, 0.1) 50%,
+    rgba(255, 255, 255, 0.03) 58%,
+    transparent 100%
+  ) !important;
+  pointer-events: none !important;
+}
+
+/* Red Laser Scan Line */
+.pass-hologram::after {
+  content: '' !important;
+  position: absolute !important;
+  top: -20% !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, transparent, #ef4444, #ffffff, #ef4444, transparent) !important;
+  box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.8) !important;
+  opacity: 0 !important;
+  animation: laserScan 1s ease-in-out 1.3s 1 forwards !important;
+}
+
+/* ==========================================================================
+   Animation Keyframes
+   ========================================================================== */
+
+@keyframes lanyardRigidDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-420px);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(24px);
+  }
+  60% {
+    transform: translateY(-12px);
+  }
+  75% {
+    transform: translateY(6px);
+  }
+  88% {
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes badgePendulumSwing {
+  0% {
+    transform: rotate(16deg) translateZ(24px);
+  }
+  38% {
+    transform: rotate(-12deg) translateZ(16px);
+  }
+  58% {
+    transform: rotate(7deg) translateZ(8px);
+  }
+  76% {
+    transform: rotate(-3.5deg) translateZ(3px);
+  }
+  88% {
+    transform: rotate(1.2deg) translateZ(0);
+  }
+  100% {
+    transform: rotate(0deg) translateZ(0);
+  }
 }
 
 @keyframes passFloating {
@@ -3474,123 +3771,60 @@ button.day-btn.active,
   }
 }
 
-/* Punch Hole for Badge */
-.card-slot-hole {
-  width: 44px;
-  height: 6px;
-  background: #09090b;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  margin: 0 auto 12px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9);
+@keyframes laserScan {
+  0% {
+    top: -10%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
 }
 
-/* Header Section */
-.pass-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 10px;
-  margin-bottom: 14px;
-}
+/* Mobile Screens (< 768px) */
+@media screen and (max-width: 768px) {
+  .badge-lanyard-wrapper {
+    max-width: 320px !important;
+    margin: 10px auto 25px !important;
+  }
 
-.pass-event {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: monospace;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #fafafa;
-  letter-spacing: 0.5px;
-}
+  .ctf-pass-card {
+    padding: 14px 14px 12px !important;
+  }
 
-.event-glow {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ef4444;
-  box-shadow: 0 0 8px #ef4444;
-}
+  .pass-photo-frame {
+    width: 60px !important;
+    height: 60px !important;
+    min-width: 60px !important;
+    max-width: 60px !important;
+    min-height: 60px !important;
+    max-height: 60px !important;
+  }
 
-.pass-security-tier {
-  font-family: monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #ef4444;
-  background: rgba(239, 68, 68, 0.12);
-  border: 1px solid rgba(239, 68, 68, 0.35);
-  padding: 2px 8px;
-  border-radius: 4px;
-}
+  .pass-avatar {
+    max-width: 56px !important;
+    max-height: 56px !important;
+  }
 
-/* Body & User Info */
-.pass-main {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 14px;
-}
+  .pass-name {
+    font-size: 0.9rem !important;
+  }
 
-.pass-photo-frame {
-  position: relative;
-  width: 68px;
-  height: 68px;
-  border-radius: 12px;
-  border: 1.5px solid rgba(239, 68, 68, 0.5);
-  background: #09090b;
-  padding: 2px;
-  flex-shrink: 0;
-}
+  .pass-title {
+    font-size: 0.68rem !important;
+  }
 
-.pass-avatar {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-  display: block;
-}
-
-.pulse-indicator {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 10px;
-  height: 10px;
-  background: #22c55e;
-  border: 2px solid #18181b;
-  border-radius: 50%;
-  box-shadow: 0 0 6px #22c55e;
-}
-
-.pass-details {
-  flex-grow: 1;
-}
-
-.pass-name {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #ffffff;
-  line-height: 1.2;
-}
-
-.pass-title {
-  font-size: 0.75rem;
-  color: #a1a1aa;
-  margin-bottom: 8px;
-}
-
-.pass-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  font-family: monospace;
-  font-size: 0.68rem;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 4px 8px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  .pass-stats {
+    font-size: 0.6rem !important;
+    padding: 3px 6px !important;
+  }
 }
 
 .stat-col {
