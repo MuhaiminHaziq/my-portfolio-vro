@@ -42,7 +42,10 @@
         </header>
 
        <!-- DAY SWITCHER / TACTICAL TABS -->
-        <div class="day-nav-container">
+        <div class="day-nav-container" id="dayNavContainer">
+          <!-- Sliding Pill Background Indicator -->
+          <div class="nav-slider" id="navSlider"></div>
+
           <button type="button" class="day-btn active" onclick="switchDay('day1', this)">
             <span class="day-badge">01</span>
             <span class="day-label">Attack & Defence</span>
@@ -311,17 +314,29 @@
 
   <!-- Script for switching Day views -->
   <script>
-      function switchDay(dayId, element) {
+      function updateNavSlider(targetBtn) {
+    const slider = document.getElementById('navSlider');
+    const container = document.getElementById('dayNavContainer');
+    if (!slider || !targetBtn || !container) return;
+
+    // Accurate position calculation
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = targetBtn.getBoundingClientRect();
+    const leftOffset = btnRect.left - containerRect.left + container.scrollLeft;
+
+    slider.style.width = targetBtn.offsetWidth + 'px';
+    slider.style.transform = `translateX(${leftOffset}px)`;
+  }
+
+  function switchDay(dayId, element) {
       // 1. Hide all day sections
-      const allSections = document.querySelectorAll('.day-content');
-      allSections.forEach(section => {
+      document.querySelectorAll('.day-content').forEach(section => {
         section.classList.remove('active');
         section.style.setProperty('display', 'none', 'important');
       });
 
-      // 2. Deactivate all buttons
-      const allButtons = document.querySelectorAll('.day-btn');
-      allButtons.forEach(btn => {
+      // 2. Remove active state from buttons
+      document.querySelectorAll('.day-btn').forEach(btn => {
         btn.classList.remove('active');
       });
 
@@ -332,19 +347,26 @@
         targetSection.style.setProperty('display', 'block', 'important');
       }
 
-      // 4. Activate current button
+      // 4. Set clicked button active & glide the slider
       if (element) {
         element.classList.add('active');
+        updateNavSlider(element);
       }
     }
 
-    // Bind click & touch listeners directly for iOS Safari
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.day-btn').forEach(btn => {
-        btn.addEventListener('click', function (e) {
-          e.preventDefault();
-        }, { passive: false });
-      });
+    // Initialize slider on load & keep responsive on resize
+    window.addEventListener('DOMContentLoaded', () => {
+      const activeBtn = document.querySelector('.day-btn.active');
+      if (activeBtn) {
+        updateNavSlider(activeBtn);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      const activeBtn = document.querySelector('.day-btn.active');
+      if (activeBtn) {
+        updateNavSlider(activeBtn);
+      }
     });
   </script>
 

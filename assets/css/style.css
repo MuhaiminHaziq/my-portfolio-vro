@@ -2995,135 +2995,7 @@ article.active {
 }
 
 /* ==========================================================================
-   Day Switcher Navigation (Red Cyber Theme - Mobile Proof)
-   ========================================================================== */
-
-/* Outer scrollable container */
-.main-content .day-nav-container,
-.blog .day-nav-container,
-.day-nav-container {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-  gap: 8px !important;
-  margin: 20px 0 25px !important;
-  padding: 8px 10px !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-  background: rgba(18, 18, 20, 0.85) !important;
-  border: 1px solid rgba(255, 60, 60, 0.18) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border-radius: 14px !important;
-
-  /* Force horizontal swiping */
-  overflow-x: scroll !important;
-  overflow-y: hidden !important;
-  white-space: nowrap !important;
-  -webkit-overflow-scrolling: touch !important;
-  scrollbar-width: none !important; /* Firefox */
-}
-
-/* Hide scrollbar */
-.day-nav-container::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
-/* Individual tab button */
-.main-content .day-nav-container .day-btn,
-.blog .day-nav-container .day-btn,
-.day-nav-container .day-btn,
-.day-btn {
-  display: inline-flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  flex: 0 0 auto !important; /* Prevents button from shrinking or expanding */
-  flex-shrink: 0 !important;
-  width: auto !important;
-  max-width: none !important;
-  min-width: fit-content !important;
-  margin: 0 !important;
-  background: transparent !important;
-  color: #a1a1aa !important;
-  border: 1px solid transparent !important;
-  padding: 8px 14px !important;
-  border-radius: 10px !important;
-  font-size: 0.85rem !important;
-  font-weight: 500 !important;
-  cursor: pointer !important;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  font-family: inherit !important;
-  text-decoration: none !important;
-  line-height: normal !important;
-  white-space: nowrap !important;
-}
-
-/* Badge number (01, 02, etc.) */
-.main-content .day-nav-container .day-badge,
-.day-nav-container .day-btn .day-badge,
-.day-badge {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-family: monospace !important;
-  font-size: 0.72rem !important;
-  font-weight: 700 !important;
-  padding: 2px 6px !important;
-  background: rgba(255, 255, 255, 0.05) !important;
-  color: #71717a !important;
-  border-radius: 6px !important;
-  transition: all 0.25s ease !important;
-  line-height: 1 !important;
-  width: auto !important;
-  flex-shrink: 0 !important;
-}
-
-/* Label text inside button */
-.day-label {
-  display: inline-block !important;
-  white-space: nowrap !important;
-  width: auto !important;
-}
-
-/* Hover state */
-.day-btn:hover {
-  color: #ffffff !important;
-  background: rgba(255, 50, 50, 0.08) !important;
-  border-color: rgba(255, 50, 50, 0.25) !important;
-}
-
-.day-btn:hover .day-badge {
-  color: #ff5555 !important;
-  background: rgba(255, 50, 50, 0.15) !important;
-}
-
-/* Red Active State with Glow */
-.main-content .day-nav-container .day-btn.active,
-.day-nav-container .day-btn.active,
-.day-btn.active {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.22) 0%, rgba(185, 28, 28, 0.12) 100%) !important;
-  color: #ffffff !important;
-  border: 1px solid rgba(239, 68, 68, 0.6) !important;
-  box-shadow: 0 0 16px rgba(239, 68, 68, 0.25), inset 0 0 8px rgba(239, 68, 68, 0.15) !important;
-}
-
-.main-content .day-nav-container .day-btn.active .day-badge,
-.day-nav-container .day-btn.active .day-badge,
-.day-btn.active .day-badge {
-  background: #ef4444 !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6) !important;
-}
-
-/* ==========================================================================
-   Day Switcher Navigation (Red Cyber Theme - Mobile & Desktop Hardened)
+   Day Switcher Navigation (Clean Red Cyber Theme + Dynamic Slider)
    ========================================================================== */
 
 /* Outer Scrollable Container */
@@ -3143,7 +3015,7 @@ article.active {
   -webkit-box-pack: start !important;
   -webkit-justify-content: flex-start !important;
   justify-content: flex-start !important;
-  gap: 10px !important;
+  gap: 6px !important;
   margin: 20px 0 25px !important;
   padding: 8px 10px !important;
   width: 100% !important;
@@ -3155,7 +3027,7 @@ article.active {
   -webkit-backdrop-filter: blur(12px) !important;
   border-radius: 14px !important;
 
-  /* Touch momentum horizontal scroll */
+  /* Horizontal touch scrolling */
   overflow-x: auto !important;
   overflow-y: hidden !important;
   white-space: nowrap !important;
@@ -3165,14 +3037,30 @@ article.active {
   z-index: 10 !important;
 }
 
-/* Hide scrollbar across all engines */
+/* Hide scrollbar */
 .day-nav-container::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
   height: 0 !important;
 }
 
-/* Individual Tab Button */
+/* Sliding Red Highlight Box (The Single Glowing Indicator) */
+.nav-slider {
+  position: absolute !important;
+  top: 8px !important;
+  left: 0 !important;
+  height: calc(100% - 16px) !important;
+  background: rgba(239, 68, 68, 0.16) !important;
+  border: 1px solid #ef4444 !important;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.3), inset 0 0 8px rgba(239, 68, 68, 0.12) !important;
+  border-radius: 10px !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), width 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform, width;
+}
+
+/* Individual Tab Button - Completely Flat and Transparent */
 .main-content .day-nav-container .day-btn,
 .blog .day-nav-container .day-btn,
 .day-nav-container .day-btn,
@@ -3180,6 +3068,8 @@ button.day-btn,
 .day-btn {
   -webkit-appearance: none !important;
   appearance: none !important;
+  position: relative !important;
+  z-index: 2 !important;
 
   display: -webkit-inline-box !important;
   display: -webkit-inline-flex !important;
@@ -3206,8 +3096,9 @@ button.day-btn,
   padding: 8px 14px !important;
   margin: 0 !important;
   background: transparent !important;
-  color: #a1a1aa !important;
+  color: #71717a !important;
   border: 1px solid transparent !important;
+  box-shadow: none !important;
   border-radius: 10px !important;
 
   font-family: inherit !important;
@@ -3221,7 +3112,7 @@ button.day-btn,
   -webkit-tap-highlight-color: transparent !important;
   user-select: none !important;
   -webkit-user-select: none !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition: color 0.25s ease !important;
 }
 
 /* Badge Number (01, 02, etc.) */
@@ -3234,20 +3125,20 @@ button.day-btn,
   align-items: center !important;
   justify-content: center !important;
   font-family: monospace !important;
-  font-size: 0.72rem !important;
+  font-size: 0.75rem !important;
   font-weight: 700 !important;
   padding: 2px 6px !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: #71717a !important;
+  background: transparent !important;
+  color: #52525b !important;
   border-radius: 6px !important;
   line-height: 1 !important;
   width: auto !important;
   flex-shrink: 0 !important;
   pointer-events: none !important;
-  transition: all 0.2s ease !important;
+  transition: all 0.25s ease !important;
 }
 
-/* Label Text Inside Button */
+/* Label Text */
 .day-label {
   display: inline-block !important;
   color: inherit !important;
@@ -3259,25 +3150,26 @@ button.day-btn,
 /* Hover State */
 button.day-btn:hover,
 .day-btn:hover {
-  background: rgba(239, 68, 68, 0.12) !important;
-  border-color: rgba(239, 68, 68, 0.35) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
   color: #ffffff !important;
 }
 
+button.day-btn:hover .day-badge,
 .day-btn:hover .day-badge {
-  background: rgba(239, 68, 68, 0.25) !important;
   color: #ef4444 !important;
 }
 
-/* Red Active State with Glow */
+/* Active Button State (Strips extra outline, only text/badge light up) */
 .main-content .day-nav-container .day-btn.active,
 .day-nav-container .day-btn.active,
 button.day-btn.active,
 .day-btn.active {
-  background: rgba(239, 68, 68, 0.22) !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
   color: #ffffff !important;
-  border: 1px solid #ef4444 !important;
-  box-shadow: 0 0 14px rgba(239, 68, 68, 0.3), inset 0 0 8px rgba(239, 68, 68, 0.15) !important;
 }
 
 .main-content .day-nav-container .day-btn.active .day-badge,
@@ -3293,7 +3185,7 @@ button.day-btn.active,
    ========================================================================== */
 
 .day-content {
-  display: none;
+  display: none !important;
 }
 
 .day-content.active {
