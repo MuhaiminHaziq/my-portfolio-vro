@@ -184,7 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(htmlContent => {
         sidebarPlaceholder.innerHTML = htmlContent;
 
-        // Re-attach sidebar toggle listener for mobile devices after fetch
         const sidebar = document.querySelector('[data-sidebar]');
         const sidebarBtn = document.querySelector('[data-sidebar-btn]');
 
@@ -198,7 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 document.addEventListener('DOMContentLoaded', async () => {
-  // 1. Device Mute Toggle Handler (?urmom=true / false)
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('urmom') === 'true') {
     localStorage.setItem('ignore_message', 'true');
@@ -208,7 +206,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log('on');
   }
 
-  // 2. Safety & Localhost Filters
   if (
     window.location.hostname === 'localhost' || 
     window.location.hostname === '127.0.0.1' ||
@@ -227,11 +224,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }).catch(err => console.error('Telemetry Error:', err));
   };
 
-  // 3. Device Brand & Hardware Model Identifier
   async function getDeviceBrandInfo() {
     const ua = navigator.userAgent || '';
 
-    // Check User-Agent Client Hints (Modern Android & Chromium)
     if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
       try {
         const hints = await navigator.userAgentData.getHighEntropyValues(['model', 'platform', 'platformVersion']);
@@ -252,7 +247,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    // Apple Devices (iOS / iPadOS)
     if (/iPhone/i.test(ua)) {
       const ratio = window.devicePixelRatio || 1;
       const w = window.screen.width;
@@ -263,7 +257,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       return 'Apple iPad';
     }
 
-    // Android User-Agent Parsing (Legacy / Fallback)
     const androidMatch = ua.match(/Android\s+[\d\.]+;\s+([^;]+)\s+Build/i);
     if (androidMatch && androidMatch[1]) {
       const model = androidMatch[1].trim();
@@ -278,7 +271,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       return `${brand} (${model})`;
     }
 
-    // Desktop Platforms
     if (/Windows NT/i.test(ua)) return 'Windows PC';
     if (/Macintosh/i.test(ua)) return 'Apple Mac';
     if (/Linux/i.test(ua)) return 'Linux Machine';
@@ -288,7 +280,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const deviceBrand = await getDeviceBrandInfo();
 
-  // 4. App Source & In-App Browser Sniffer
   const ua = navigator.userAgent || '';
   let inAppSource = 'Standard Browser';
   if (ua.includes('Instagram')) inAppSource = 'Instagram In-App';
@@ -298,7 +289,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   else if (ua.includes('musical_ly') || ua.includes('ByteLocale') || ua.includes('TikTok')) inAppSource = 'TikTok In-App';
   else if (ua.includes('Discord')) inAppSource = 'Discord Webview';
 
-  // 5. Referrer Source & Campaign Tagging
   let refSource = document.referrer;
   if (!refSource) {
     refSource = 'Direct Link (e.g. WhatsApp / Typed URL)';
@@ -314,12 +304,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const campaign = urlParams.get('utm_source') || urlParams.get('ref') || urlParams.get('src') || 'None';
 
-  // 6. Visitor Frequency Tracker
   let visitCount = parseInt(localStorage.getItem('site_visit_count') || '0', 10) + 1;
   localStorage.setItem('site_visit_count', visitCount.toString());
   const visitorType = visitCount === 1 ? 'First-Time Visitor' : `Returning (Visit #${visitCount})`;
 
-  // 7. Screen & Form Factor Classification
   const screenW = window.screen.width;
   const screenH = window.screen.height;
   const minDimension = Math.min(screenW, screenH);
@@ -343,7 +331,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const screenMetrics = `${deviceFormFactor}\n${screenW}x${screenH} (Viewport: ${window.innerWidth}x${window.innerHeight})`;
 
-  // 8. Hardware, Theme & Network Specs
   const cpuCores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} Cores` : 'Unknown Cores';
   const ramEstimate = navigator.deviceMemory ? `~${navigator.deviceMemory} GB RAM` : 'Unknown RAM';
   const deviceHardware = `${cpuCores} | ${ramEstimate}`;
@@ -353,7 +340,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const connSpeed = conn ? `${conn.effectiveType?.toUpperCase() || 'Network'} (~${conn.downlink || '?'} Mbps)` : 'Standard Connection';
 
-  // 9. Fetch IP & Geolocation
   fetch('https://api.ipify.org?format=json')
     .then(res => res.json())
     .then(ipData => {
